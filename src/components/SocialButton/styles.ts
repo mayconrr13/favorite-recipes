@@ -25,12 +25,13 @@ export const Button = styled.button<ButtonProps>`
   border-radius: 0.5rem;
 
   background: #f5f5f5;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 
   div {
     height: 100%;
     width: calc(24px + 2.5rem);
 
-    padding: 1.25rem 1.25rem 1.25rem 0;
+    padding: 1.25rem;
     border-radius: 0.5rem;
 
     background-color: ${props => colors[props.color]};
@@ -50,16 +51,15 @@ export const Button = styled.button<ButtonProps>`
       height: auto;
 
       margin-right: auto;
-      margin-left: 1.25rem;
     }
   }
 
   span {
-    padding: 1.25rem 3rem 1.25rem calc(50px + 3rem);
+    padding: 1.25rem 3rem 1.25rem calc(24px + 2.5rem + 3rem);
+    margin-left:auto;
     z-index: 999;
+    font-size:1.25rem;
     color: var(--gray-800);
-    
-    font-size: 1.25rem;
 
     transition: color 0.5s;
   }

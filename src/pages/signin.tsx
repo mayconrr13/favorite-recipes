@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
-import { FiLogOut } from 'react-icons/fi'
 import { SocialButton } from '../components/SocialButton'
 
 import { Container, Social } from '../styles/pages/SignIn'

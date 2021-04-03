@@ -4,7 +4,6 @@ export const Container = styled.div`
   width: 100vw;
   min-width: 375px;
   max-width: 1170px;
-  height: 100vh;
 
   padding: 1.5rem;
   margin: 0 auto;
@@ -65,60 +64,59 @@ export const Container = styled.div`
   }
 
   @media (min-width: 1120px) {
-    max-width: 700px;
+    main {
+      > img {
+        max-width: 700px;
+      }
+    }
   }
 `;
 
 export const Information = styled.div`
-  min-width: 327px;
-  max-width: 510px;
-
   display: flex;
+  flex-direction: column;
   align-items: center;
 
-  margin: 0 auto 2rem auto;
+  position: relative;
 
-  span {
-    height: 100%;
-    width: 8px;
-    min-width: 8px;
+  padding-left: 1.5rem;
+  margin-bottom: 2rem;
 
-    margin-right: 1rem;
-
-    background-color: var(--yellow-500);
+  &::before {
+    content: '';
+      width: 8px;
+      height: 100%;
+      background: var(--yellow-500);
+      position: absolute;
+      top: 0;
+      left: 0;
   }
 
-  div {
-    p {
-      &:first-child {
-        font-size: 1.5rem;
-        font-weight: 700;
+  p {
+    margin-right: auto;
 
-        margin-bottom: 1.75rem;
-      }
+    &:first-child {
+      font-size: 1.5rem;
+      font-weight: 700;
 
-      &:last-child {
-        font-size: 1.25rem;
-        line-height: 30px;
-        letter-spacing: 1px;
-      }
+      margin-bottom: 1.75rem;
+    }
+
+    &:last-child {
+      font-size: 1.25rem;
+      line-height: 30px;
+      letter-spacing: 1px;
     }
   }
 
   @media (min-width: 600px) {
-    span {
-      height: 100%;
-    }
+    p {
+      &:first-child {
+        font-size: 2rem;
+      }
 
-    div {
-      p {
-        &:first-child {
-          font-size: 2rem;
-        }
-
-        &:last-child {
-          font-size: 1.5rem;
-        }
+      &:last-child {
+        font-size: 1.5rem;
       }
     }
   }
@@ -127,15 +125,9 @@ export const Information = styled.div`
     width: 500px;
     margin-bottom: 3rem;
 
-    span {
-      height: 280px;
-    }
-
-    div {
-      p {
-        &:first-child {
-          font-size: 2.25rem;
-        }
+    p {
+      &:first-child {
+        font-size: 2.25rem;
       }
     }
   }
@@ -151,7 +143,7 @@ export const ButtonContainer = styled.div`
   min-width: 327px;
   max-width: 510px;
 
-  button {
+  a {
     width: 100%;
     padding: 1rem;
 
@@ -159,6 +151,10 @@ export const ButtonContainer = styled.div`
     border-radius: 8px;
 
     font-weight: 700;
+    font-size: 1.125rem;
+    text-align: center;
+
+    transition: filter 0.2s;
     
     &:first-child {
       margin-right: 1.5rem;
@@ -176,11 +172,15 @@ export const ButtonContainer = styled.div`
       background: var(--yellow-500);
       border: none
     }
+
+    &:hover {
+      filter: brightness(0.90);
+    }
   }
 
   @media (min-width: 600px) {
-    button {
-      font-size: 1.25rem;
+    a {
+      
     }
   }
 `;

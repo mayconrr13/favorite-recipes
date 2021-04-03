@@ -16,6 +16,12 @@ export const Container = styled.div`
     margin-bottom: 3rem;
     margin-right: auto;
   }
+
+  a {
+    color: var(--gray-800);
+    text-decoration: none;
+    font-size: 1.25rem;
+  }
 `;
 
 export const Content = styled.main`
@@ -33,6 +39,19 @@ export const Content = styled.main`
     font-size: 1.5rem;
     margin-bottom: 2rem;
     margin-right: auto;
+    padding-left: 1rem;
+
+    position: relative;
+
+    &::before {
+      content: '';
+      width: 8px;
+      height: 100%;
+      background: var(--yellow-500);
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
   }
 
   img {
@@ -46,5 +65,4 @@ export const Content = styled.main`
   p {
     font-size: 1.25rem;
   }
-
 `;
