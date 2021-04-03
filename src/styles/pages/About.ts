@@ -4,7 +4,6 @@ export const Container = styled.div`
   width: 100vw;
   min-width: 375px;
   max-width: 1170px;
-  height: 100vh;
 
   padding: 1.5rem;
   margin: 0 auto;
@@ -26,6 +25,10 @@ export const Content = styled.main`
   flex-direction: column;
   align-items: center;
 
+  padding: 1rem;
+
+  overflow-x: hidden;
+
   h1 {
     font-size: 1.5rem;
     margin-bottom: 2rem;
@@ -43,4 +46,5 @@ export const Content = styled.main`
   p {
     font-size: 1.25rem;
   }
+
 `;

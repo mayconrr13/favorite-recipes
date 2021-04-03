@@ -11,10 +11,11 @@ export const Container = styled.div`
 
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
 
   header {
     margin-bottom: 3rem;
+    margin-right: auto;
   }
 
   main {
@@ -28,17 +29,20 @@ export const Container = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: center;
+
+      max-width: 510px;
+      margin: 0 auto;
     }
 
     > img {
       width: 100%;
       max-width: 450px;
 
-      margin: 2rem auto 1.5rem auto;
+      margin: auto;
     }
   }
 
-  @media (min-width: 900px) {
+  @media (min-width: 1020px) {
     header {
       margin-bottom: 7rem;
     }
@@ -54,22 +58,25 @@ export const Container = styled.div`
       }
 
       > img {
-        max-width: 550px;
         margin: 0;
+        max-width: 500px;
       }
     }
+  }
+
+  @media (min-width: 1120px) {
+    max-width: 700px;
   }
 `;
 
 export const Information = styled.div`
-  width: 100%;
   min-width: 327px;
   max-width: 510px;
 
   display: flex;
   align-items: center;
 
-  margin-bottom: 2rem;
+  margin: 0 auto 2rem auto;
 
   span {
     height: 100%;
@@ -91,14 +98,17 @@ export const Information = styled.div`
       }
 
       &:last-child {
+        font-size: 1.25rem;
         line-height: 30px;
-        letter-spacing: 1.5px;
+        letter-spacing: 1px;
       }
     }
   }
 
   @media (min-width: 600px) {
-    width: 510px;
+    span {
+      height: 100%;
+    }
 
     div {
       p {
@@ -113,8 +123,8 @@ export const Information = styled.div`
     }
   }
 
-  @media (min-width: 900px) {
-    width: 510px;
+  @media (min-width: 1020px) {
+    width: 500px;
     margin-bottom: 3rem;
 
     span {
@@ -136,9 +146,10 @@ export const ButtonContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  width: 100%;
+  margin-bottom: 1.5rem;
+
   min-width: 327px;
-  max-width: 550px;
+  max-width: 510px;
 
   button {
     width: 100%;

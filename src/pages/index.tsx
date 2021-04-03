@@ -20,7 +20,7 @@ export default function Home() {
             <span></span>
             <div>
               <p>How many recipes do you <br/> know or remember?</p>
-              <p>“Favorite recipes is a cookbook <br/> application where you can store<br/> your recipes and never lost, or even<br/> share with your friends at social<br/> media.”</p>
+              <p>“Favorite recipes is a cookbook <br/> application where you can<br/> store your recipes and never<br/> lost, or even share with your<br/> friends at social media.”</p>
             </div>
           </Information>
 
