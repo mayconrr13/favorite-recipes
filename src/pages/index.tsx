@@ -1,7 +1,12 @@
+import React from 'react'
 import Head from 'next/head'
 
 export default function Home() {
   return (
-    <h1>favorite recipes</h1>
+    <>
+      <Head>
+        <title>Home | favorite recipes</title>
+      </Head>
+    </>
   )
 }
