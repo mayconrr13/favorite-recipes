@@ -55,10 +55,11 @@ export const Button = styled.button<ButtonProps>`
   }
 
   span {
-    padding: 1.25rem 3rem 1.25rem calc(24px + 2.5rem + 3rem);
-    margin-left:auto;
+    padding: 1.25rem 0;
+    margin-left: calc(24px + 2.5rem);
+
     z-index: 999;
-    font-size:1.25rem;
+    font-size:1.125rem;
     color: var(--gray-800);
 
     transition: color 0.5s;

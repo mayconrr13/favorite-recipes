@@ -5,6 +5,23 @@ export const GlobalStyle = createGlobalStyle`
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+
+        ::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+  
+        ::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            background: var(--yellow-500);  
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #dddddd; 
+            -webkit-border-radius: 10px;
+          border-radius: 10px;
+        }
   }
 
   :root {
@@ -29,6 +46,7 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
       color: var(--gray-800);
+      overflow-x: hidden;
   }
 
   body, input, textarea, select, button {

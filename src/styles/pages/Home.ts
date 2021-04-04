@@ -148,7 +148,7 @@ export const ButtonContainer = styled.div`
     padding: 1rem;
 
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
+    border-radius: 0.5rem;
 
     font-weight: 700;
     font-size: 1.125rem;
@@ -175,12 +175,6 @@ export const ButtonContainer = styled.div`
 
     &:hover {
       filter: brightness(0.90);
-    }
-  }
-
-  @media (min-width: 600px) {
-    a {
-      
     }
   }
 `;
