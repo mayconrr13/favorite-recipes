@@ -73,47 +73,55 @@ export const BurgerMenu = styled.button`
   span + span {
     margin-top: 0.4rem;
   }
+
+  @media(min-width: 720px) {
+    display: none;
+  }
 `;
 
 export const Navigation = styled.nav`
-  display: flex;
-  align-items: center;
+  display: none;
 
-  > div {
+  @media(min-width: 720px) {
     display: flex;
     align-items: center;
 
-    margin-right: 3rem;
-
-    img {
-      width: 48px;
-      height: auto;
-
-      border-radius: 50%;
-
-      margin-right: 1rem;
-    }
-    
-    div {
+    > div {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
 
-      strong {
-        font-size: 1rem;
+      margin-right: 3rem;
+
+      img {
+        width: 48px;
+        height: auto;
+
+        border-radius: 50%;
+
+        margin-right: 1rem;
       }
+      
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
 
-      span {
-        font-size: 0.9rem;
-        color: #bbbbbb;
+        strong {
+          font-size: 1rem;
+        }
+
+        span {
+          font-size: 0.9rem;
+          color: #bbbbbb;
+        }
       }
     }
-  }
 
-  button {
-    border: none;
-    background: transparent;
-    color: var(--gray-800);
+    button {
+      border: none;
+      background: transparent;
+      color: var(--gray-800);
+    }
   }
 `;
 
@@ -327,8 +335,32 @@ export const RecipesContainer = styled.div`
 
   margin-bottom: 2rem;
 
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  /* grid-auto-rows: 100%; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  > div + div {
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 720px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+
+    > div + div {
+      margin-top: 0;
+    }
+  }
+
+  @media (min-width: 1020px) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+
+    > div + div {
+      margin-top: 0;
+    }
+  }
 `;

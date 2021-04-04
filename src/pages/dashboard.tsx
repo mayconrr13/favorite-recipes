@@ -10,7 +10,7 @@ export default function Dashboard() {
         <div>
           <img src="/images/logo.svg" alt="Logo" />
 
-          {/* <Navigation>
+          <Navigation>
             <div>
               <img src="https://avatars.githubusercontent.com/u/69278888?v=4" alt="Avatar"/>
               <div>
@@ -21,7 +21,7 @@ export default function Dashboard() {
             <button>
               Log Out
             </button>
-          </Navigation> */}
+          </Navigation>
 
           <BurgerMenu type="button">
             <span/>
