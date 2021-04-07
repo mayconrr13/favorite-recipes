@@ -9,9 +9,9 @@ interface ActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon: React.ComponentType<IconBaseProps>;
 }
 
-export const ActionButton = ({ property, icon: Icon, maxWidth, ...rest }: ActionButtonProps) => {
+export const ActionButton = ({ property, icon: Icon, ...rest }: ActionButtonProps) => {
   return (
-    <Button type="button" >
+    <Button type="button" {...rest}>
       <div>
         {Icon && <Icon />}
       </div>

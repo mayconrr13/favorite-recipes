@@ -1,11 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { FiBarChart, FiChevronLeft, FiClock, FiEdit, FiStar, FiTrash, FiUsers } from "react-icons/fi";
+
 import { ActionButton } from "../components/ActionButton";
 import { Header } from "../components/Header";
+import { EditRecipeModal } from "../components/EditRecipeModal";
+
 
 import { Container, Content, RecipeInfo, SimpleButtonContainer, ActionButtonContainer, Button, Gallery, RecipeDetails } from '../styles/pages/Recipe'
+import { DeleteRecipeModal } from "../components/DeleteWarningModal";
 
 export default function Recipe() {
+  const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false)
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false)
+  
+  function handleEditRecipe() {
+    console.log('abriu')
+    setEditModalIsOpen(true)
+  }
+
+  function closeEditModal() {
+    setEditModalIsOpen(false)
+  }
+  
+  function handleDeleteRecipe() {
+    console.log('abriu')
+    setDeleteModalIsOpen(true)
+  }
+
+  function closeDeleteModal() {
+    setDeleteModalIsOpen(false)
+  }
+
   return (
     <Container>
       <Header />
@@ -17,19 +42,29 @@ export default function Recipe() {
           </Button>
 
           <SimpleButtonContainer>
-            <Button type="button">
+            <Button type="button" onClick={handleEditRecipe}>
               <FiEdit />
             </Button>
-            <Button type="button">
+            <Button type="button" onClick={handleDeleteRecipe} >
               <FiTrash />
             </Button>
           </SimpleButtonContainer>
 
           <ActionButtonContainer>
-            <ActionButton property="Edit" icon={FiEdit}/>
-            <ActionButton property="Delete" icon={FiTrash} />
+            <ActionButton property="Edit" icon={FiEdit} onClick={handleEditRecipe} />
+            <ActionButton property="Delete" icon={FiTrash} onClick={handleDeleteRecipe} />
           </ActionButtonContainer>
         </nav>
+
+        <EditRecipeModal 
+          editModalIsOpen={editModalIsOpen} 
+          closeModal={closeEditModal} 
+        />
+
+        <DeleteRecipeModal 
+          deleteModalIsOpen={deleteModalIsOpen} 
+          closeModal={closeDeleteModal} 
+        />
 
         <div>
           <h1>Filé com fritas</h1>
