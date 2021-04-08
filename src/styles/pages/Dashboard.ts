@@ -118,7 +118,7 @@ export const RecipesContainer = styled.div`
   justify-content: center;
   flex-direction: column;
 
-  > div + div {
+  > a + a {
     margin-top: 1.5rem;
   }
 
@@ -127,7 +127,7 @@ export const RecipesContainer = styled.div`
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
 
-    > div + div {
+    > a + a {
       margin-top: 0;
     }
   }
@@ -137,7 +137,7 @@ export const RecipesContainer = styled.div`
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
 
-    > div + div {
+    > a + a {
       margin-top: 0;
     }
   }

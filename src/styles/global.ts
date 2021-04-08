@@ -81,6 +81,8 @@ export const GlobalStyle = createGlobalStyle`
 
     overflow-y: auto;
     overflow-x: hidden;
+
+    z-index: 999;
   }
 
   .delete-modal-content {
@@ -103,5 +105,7 @@ export const GlobalStyle = createGlobalStyle`
     overflow: hidden;
 
     padding: 1.5rem;
+
+    z-index: 998;
   }
 `;
