@@ -50,7 +50,7 @@ export const Container = styled.header`
     width: calc(100vw - 250px);
   }
 
-  @media (min-width: 720px) {
+  @media (min-width: 725px) {
     > div {
       display: flex;
     align-items: center;
@@ -170,7 +170,7 @@ export const Navigation = styled.nav`
 
   overflow-x: hidden;
 
-  transition: all 0.2s;
+  /* transition: all 0.2s; */
 
   button {
     font-size: 1.25rem;

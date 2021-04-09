@@ -1,3 +1,4 @@
+import { signOut, useSession } from 'next-auth/client'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { FiHome, FiSearch } from 'react-icons/fi'
@@ -5,6 +6,8 @@ import { FiHome, FiSearch } from 'react-icons/fi'
 import { Container, BurgerMenu, Navigation, LinksContainer, ProfileContainer } from './styles'
 
 export const Header = () => {
+  const [{user}] = useSession()
+  console.log(user)
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false)
 
   function handleMenuToggle() {
@@ -45,14 +48,14 @@ export const Header = () => {
           </LinksContainer>
 
           <ProfileContainer>
-            <img src="https://avatars.githubusercontent.com/u/69278888?v=4" alt="Avatar"/>
+            <img src={user.image} alt="Avatar"/>
             <section>
-              <strong>Maycon</strong>
+              <strong>{user.name.split(' ')[0]}</strong>
               <span>13 recipes</span>
             </section>
           </ProfileContainer>
 
-          <button type="button">
+          <button type="button" onClick={() => signOut()}>
             Log Out
           </button>
         </Navigation>       

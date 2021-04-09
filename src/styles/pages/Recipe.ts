@@ -56,9 +56,14 @@ export const Content = styled.main`
       }
     }
 
-    img {
-      width: 24px;
-      height: auto;
+    button {
+      border: none;
+      background-color: transparent;
+
+      img {
+        width: 24px;
+        height: auto;
+      }
     }
   }
 
@@ -120,7 +125,7 @@ export const Gallery = styled.div`
 
     button {
       flex: 1; 
-      background: #121212;
+      /* background: #121212; */
 
       display: flex;
       flex-direction: column;
@@ -138,9 +143,12 @@ export const Gallery = styled.div`
         height: 100%;
 
         max-height: 64px;
-        max-width: 96px;
+        /* max-width: 96px; */
 
         object-fit: cover;
+
+        border: none;
+        border-radius: 0.5rem;
       }
     }
   }

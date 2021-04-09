@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
-import Link from 'next/link'
+import React, { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/client'
+import { useRouter } from 'next/router'
+
 import { FiPlus} from 'react-icons/fi'
 
 import { Container, Content, FavoriteContainer, RecipesContainer } from '../../styles/pages/Dashboard'
@@ -10,6 +12,16 @@ import { ActionButton } from '../../components/ActionButton'
 import { AddRecipeModal } from '../../components/AddRecipeModal'
 
 export default function Dashboard() {
+  const [session] = useSession()
+  const router = useRouter()
+
+  useEffect(() => {
+    console.log(session)
+    if (!session) {
+      router.push(`/`)
+    } 
+  }, [session])
+  
   const [addModalIsOpen, setAddModalIsOpen] = useState<boolean>(false)
   function handleAddNewRecipe() {
     console.log('abriu')
@@ -39,11 +51,6 @@ export default function Dashboard() {
           <div>
             <RecipeCard />
             <RecipeCard />
-            <RecipeCard />
-            <RecipeCard />
-            <RecipeCard />
-            <RecipeCard />
-            <RecipeCard />
           </div>
         </FavoriteContainer>
 
@@ -54,12 +61,10 @@ export default function Dashboard() {
           <RecipeCard />
           <RecipeCard />
           <RecipeCard />
-          <RecipeCard />
-          <RecipeCard />
-          <RecipeCard />
-          <RecipeCard />
         </RecipesContainer>
       </Content>
     </Container>
   )
 }
+
+// buscar lista de receitas no banco de dados com os dados principais (getServerSideProps)

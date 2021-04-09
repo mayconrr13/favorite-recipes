@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { ButtonHTMLAttributes } from 'react'
 
 import { Button } from './styles'
 
-interface SocialButtonProps {
+interface SocialButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   socialMedia: string;
 }
 
-export const SocialButton = ({ socialMedia }: SocialButtonProps) => {
+export const SocialButton = ({ socialMedia , ...rest}: SocialButtonProps) => {
   return (
-    <Button color={socialMedia} type="button">
+    <Button color={socialMedia} type="button" {...rest}>
       <div>
         <img src={`/icons/${socialMedia.toLowerCase()}.svg`}alt={socialMedia}/>
       </div>

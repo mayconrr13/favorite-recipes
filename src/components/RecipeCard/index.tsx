@@ -1,17 +1,21 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import { FiBarChart, FiClock, FiUsers } from 'react-icons/fi'
 
 import { Card, RecipeInfo } from './styles'
 
 export const RecipeCard = () => {
+  const [isFavorite, setIsFavorite] = useState<boolean>(false)
+
   return (
     <Link href="/recipe">
       <Card>
         <img src="/images/home-image.png" alt="home"/>
         <section>
           <h2>Filé com fritas</h2>
-          <img src="/icons/favorite.svg" alt="Favorite"/>
+          <button type="button">
+            <img src={`/icons/${isFavorite ? 'favorite' : 'no-favorite'}.svg`} alt={isFavorite ? 'Favorite' : 'Unfavorite'}/>
+          </button>
         </section>
         <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
         <RecipeInfo>

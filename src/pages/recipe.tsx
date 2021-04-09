@@ -10,6 +10,14 @@ import { Container, Content, RecipeInfo, SimpleButtonContainer, ActionButtonCont
 import { DeleteRecipeModal } from "../components/DeleteWarningModal";
 
 export default function Recipe() {
+  const images = [
+    "image1.jpg",
+    "image2.png",
+    "image3.spg"
+  ]
+
+  const [isFavorite, setIsFavorite] = useState<boolean>(false)
+  const [currentImage, setCurrentImage] = useState<string>('image1.jpg')
   const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false)
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false)
   
@@ -68,7 +76,9 @@ export default function Recipe() {
 
         <div>
           <h1>Filé com fritas</h1>
-          <img src="/icons/favorite.svg" alt="favorite"/>
+          <button type="button" onClick={() => setIsFavorite(!isFavorite)}>
+            <img src={`/icons/${isFavorite ? 'favorite' : 'no-favorite'}.svg`} alt={isFavorite ? 'Favorite' : 'Unfavorite'}/>
+          </button>
         </div>
 
         <p>“It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.”</p>
@@ -90,17 +100,17 @@ export default function Recipe() {
 
         <Gallery>
           <div>
-            <img src="/images/home-image.png" alt="current"/>
+            <img src={`/images/${currentImage}`} alt={currentImage}/>
           </div>
           <section>
-            <button>
-              <img src="/images/home-image.png" alt="image1"/>
+            <button type="button" onClick={() => setCurrentImage('image1.jpg')}>
+              <img src="/images/image1.jpg" alt="image1"/>
             </button>
-            <button>
-              <img src="/images/home-image.png" alt="image2"/>
+            <button type="button" onClick={() => setCurrentImage('image2.png')}>
+              <img src="/images/image2.png" alt="image2"/>
             </button>
-            <button>
-              <img src="/images/home-image.png" alt="image2"/>
+            <button type="button" onClick={() => setCurrentImage('image3.jpg')}>
+              <img src="/images/image3.jpg" alt="image3"/>
             </button>
           </section>
         </Gallery>
