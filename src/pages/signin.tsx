@@ -1,18 +1,20 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { signIn, useSession } from 'next-auth/client'
 
 import { SocialButton } from '../components/SocialButton'
 
 import { Container, Social } from '../styles/pages/SignIn'
 import { useRouter } from 'next/router'
+import axios from 'axios'
+import { request } from 'node:http'
 
 export default function Signin() {
   const [session] = useSession()
   const router = useRouter()
   if (!!session) {
-    router.replace('/dashboard')
+    router.push('/dashboard')
   }
 
   return (
@@ -45,3 +47,7 @@ export default function Signin() {
     </Container>
   )
 }
+function useFetch(arg0: string): { data: any } {
+  throw new Error('Function not implemented.')
+}
+

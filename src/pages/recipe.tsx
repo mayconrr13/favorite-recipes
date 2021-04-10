@@ -10,11 +10,6 @@ import { Container, Content, RecipeInfo, SimpleButtonContainer, ActionButtonCont
 import { DeleteRecipeModal } from "../components/DeleteWarningModal";
 
 export default function Recipe() {
-  const images = [
-    "image1.jpg",
-    "image2.png",
-    "image3.spg"
-  ]
 
   const [isFavorite, setIsFavorite] = useState<boolean>(false)
   const [currentImage, setCurrentImage] = useState<string>('image1.jpg')

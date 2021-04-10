@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
+import axios, { AxiosResponse } from 'axios'
 
 export default NextAuth({
   providers: [
@@ -18,4 +19,23 @@ export default NextAuth({
       scope: 'r_liteprofile'
     })
   ],
+  callbacks: {
+    async signIn(user, account, profile) {
+      const { name, email } = user
+      console.log(name, user)
+      const response = await axios.post<AxiosResponse>('http://localhost:3000/api/users', {
+        name,
+        email
+      })
+
+      const status = response.status
+
+      console.log(status)
+      if (status === 200) {
+        return true
+      } else {
+        return false
+      }
+    }
+  }
 })

@@ -16,7 +16,6 @@ export default function Dashboard() {
   const router = useRouter()
 
   useEffect(() => {
-    console.log(session)
     if (!session) {
       router.push(`/`)
     } 
