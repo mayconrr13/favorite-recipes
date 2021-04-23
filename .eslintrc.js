@@ -49,6 +49,11 @@ module.exports = {
         ],
 
         'prettier/prettier': ['error', {}, { usePrettierrc: true }], // Includes .prettierrc.js rules
+
+        "react/self-closing-comp": ["error", {
+          "component": true,
+          "html": true
+        }]
       },
     },
   ],
