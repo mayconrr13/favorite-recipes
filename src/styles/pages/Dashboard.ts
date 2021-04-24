@@ -4,48 +4,12 @@ export const Container = styled.div`
   width: 100vw;
 `;
 
-export const Header = styled.header`
-  width: 100%;
-  height: 5rem;
-  border-bottom: 1px solid var(--gray);
-
-  > div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    height: 100%;
-    width: 100%;
-    max-width: 1120px;
-
-    padding: 1rem;
-    margin: 0 auto;
-
-    nav {
-      display: none;
-    }
-
-    > button {
-      border: none;
-      background-color: transparent;
-
-      span {
-        display: block;
-        width: 1.5rem;
-        height: 0.125rem;
-        background-color: var(--text);
-
-        & + span {
-          margin-top: 0.25rem;
-        }
-      }
-    }
-  }
-`;
-
 export const Content = styled.main`
   width: 100%;
+  max-width: 1152px;
   padding: 1rem;
+
+  margin: 0 auto;
 
   > p {
     font-size: 1rem;
@@ -66,6 +30,13 @@ export const Controls = styled.div`
   align-items: center;
 
   width: 100%;
+
+  margin-top: 1.5rem;
+
+  @media (min-width: 740px) {
+    flex-direction: row-reverse;
+    margin-bottom: 2rem;
+  }
 `;
 
 export const SearchBox = styled.div`
@@ -76,7 +47,6 @@ export const SearchBox = styled.div`
   flex-direction: row;
   align-items: center;
 
-  margin-top: 1.5rem;
   background-color: var(--gray-light);
 
   input {
@@ -106,6 +76,10 @@ export const SearchBox = styled.div`
       height: auto;
       color: var(--background);
     }
+  }
+
+  @media (min-width: 740px) {
+    margin-left: 0.75rem;
   }
 `;
 
@@ -138,12 +112,16 @@ export const SortOptions = styled.div`
       color: var(--background);
     }
   }
+
+  @media (min-width: 740px) {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 `;
 
 export const SelectMenu = styled.div`
   margin-left: 0.75rem;
   flex: 1;
-  max-width: 100%;
   height: 100%;
   background-color: var(--gray-light);
 
@@ -216,6 +194,10 @@ export const SelectMenu = styled.div`
       }
     }
   }
+
+  @media (min-width: 740px) {
+    max-width: 150px;
+  }
 `;
 
 export const EmptyList = styled.div`
@@ -251,9 +233,34 @@ export const RecipesList = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   > div + div {
     margin-top: 2rem;
+  }
+
+  @media (min-width: 740px) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    max-width: 768px;
+    margin: 0 auto;
+
+    > div {
+      margin-bottom: 2rem;
+      justify-content: flex-start;
+    }
+
+    > div + div {
+      margin-top: 0;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    max-width: inherit;
   }
 `;
 

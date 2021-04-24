@@ -9,9 +9,10 @@ import {
   FiUsers,
 } from 'react-icons/fi';
 
+import { Header } from '../components/Header';
+
 import {
   Container,
-  Header,
   Content,
   Controls,
   SearchBox,
@@ -33,22 +34,7 @@ export default function Dashboard(): JSX.Element {
         <title>Dashboard | let&apos;s cook</title>
       </Head>
 
-      <Header>
-        <div>
-          <img src="/logo-header.svg" alt="logo" />
-
-          <nav>
-            <button type="button">Nova receita</button>
-            <button type="button">Sair</button>
-          </nav>
-
-          <button type="button">
-            <span />
-            <span />
-            <span />
-          </button>
-        </div>
-      </Header>
+      <Header />
 
       <Content>
         <p>
@@ -121,6 +107,87 @@ export default function Dashboard(): JSX.Element {
 
         {/* recipe */}
         <RecipesList>
+          <Recipe>
+            <div />
+
+            <Link href="/recipe/1">
+              <a>
+                <div>
+                  <h3>Panquecas com mirtilo</h3>
+                  <FiHeart />
+                </div>
+
+                <div>
+                  <div>
+                    <FiClock />
+                    <span>30 minutos</span>
+                  </div>
+                  <div>
+                    <FiUsers />
+                    <span>2 pessoas</span>
+                  </div>
+                  <div>
+                    <FiBarChart />
+                    <span>Iniciante</span>
+                  </div>
+                </div>
+              </a>
+            </Link>
+          </Recipe>
+          <Recipe>
+            <div />
+
+            <Link href="/recipe/1">
+              <a>
+                <div>
+                  <h3>Panquecas com mirtilo</h3>
+                  <FiHeart />
+                </div>
+
+                <div>
+                  <div>
+                    <FiClock />
+                    <span>30 minutos</span>
+                  </div>
+                  <div>
+                    <FiUsers />
+                    <span>2 pessoas</span>
+                  </div>
+                  <div>
+                    <FiBarChart />
+                    <span>Iniciante</span>
+                  </div>
+                </div>
+              </a>
+            </Link>
+          </Recipe>
+          <Recipe>
+            <div />
+
+            <Link href="/recipe/1">
+              <a>
+                <div>
+                  <h3>Panquecas com mirtilo</h3>
+                  <FiHeart />
+                </div>
+
+                <div>
+                  <div>
+                    <FiClock />
+                    <span>30 minutos</span>
+                  </div>
+                  <div>
+                    <FiUsers />
+                    <span>2 pessoas</span>
+                  </div>
+                  <div>
+                    <FiBarChart />
+                    <span>Iniciante</span>
+                  </div>
+                </div>
+              </a>
+            </Link>
+          </Recipe>
           <Recipe>
             <div />
 

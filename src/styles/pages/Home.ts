@@ -23,14 +23,11 @@ const description = keyframes`
 `;
 
 export const HomeContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
   width: 100vw;
   height: 100vh;
 
   padding: 1rem;
+  margin: 0 auto;
 
   background-image: linear-gradient(
       180deg,
@@ -41,6 +38,17 @@ export const HomeContainer = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+`;
+
+export const Content = styled.div`
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1152px;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 
   > strong {
     font-size: 1.75rem;
@@ -71,6 +79,8 @@ export const HomeContainer = styled.div`
     background: #ffffff;
 
     display: flex;
+
+    margin-top: auto;
 
     position: relative;
 
@@ -119,6 +129,33 @@ export const HomeContainer = styled.div`
       span {
         color: #ffffff;
       }
+    }
+  }
+
+  @media (min-width: 740px) {
+    > strong {
+      font-size: 4rem;
+    }
+
+    > span {
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
+
+    button {
+      margin-top: 3rem;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    > strong {
+      font-size: 5rem;
+      line-height: 6rem;
+    }
+
+    > span {
+      font-size: 1.7rem;
+      line-height: 3rem;
     }
   }
 `;

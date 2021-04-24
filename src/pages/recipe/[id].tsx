@@ -1,4 +1,5 @@
 import Head from 'next/head';
+
 import {
   FiBarChart,
   FiChevronLeft,
@@ -9,9 +10,10 @@ import {
   FiHeart,
 } from 'react-icons/fi';
 
+import { Header } from '../../components/Header';
+
 import {
   Container,
-  Header,
   Content,
   Controls,
   RecipeInfo,
@@ -27,22 +29,7 @@ export default function Recipe(): JSX.Element {
         <title>Receita | Panquecas com mirtilo</title>
       </Head>
 
-      <Header>
-        <div>
-          <img src="/logo-header.svg" alt="logo" />
-
-          <nav>
-            <button type="button">Nova receita</button>
-            <button type="button">Sair</button>
-          </nav>
-
-          <button type="button">
-            <span />
-            <span />
-            <span />
-          </button>
-        </div>
-      </Header>
+      <Header />
 
       <Content>
         <Controls>
