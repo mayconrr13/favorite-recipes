@@ -4,7 +4,7 @@ export const Container = styled.div`
   width: 100vw;
 `;
 
-export const Header = styled.div`
+export const Header = styled.header`
   width: 100%;
   height: 5rem;
   border-bottom: 1px solid var(--gray);
@@ -51,7 +51,7 @@ export const Content = styled.main`
     font-size: 1rem;
     color: var(--text);
     text-align: center;
-    margin-top: 2rem;
+    margin-top: 1rem;
 
     strong {
       font-weight: 700;
