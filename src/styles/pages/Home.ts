@@ -1,4 +1,26 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const title = keyframes`
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+`;
+
+const description = keyframes`
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
 
 export const HomeContainer = styled.div`
   display: flex;
@@ -26,12 +48,17 @@ export const HomeContainer = styled.div`
 
     margin-top: 20vh;
     margin-bottom: 1.25rem;
+    opacity: 1;
+
+    animation: ${title} 0.5s ease-in;
   }
 
-  span {
+  > span {
     font-size: 1rem;
     color: #ffffff;
     line-height: 1.5rem;
+
+    animation: ${description} 1.2s ease-in 1;
   }
 
   button {

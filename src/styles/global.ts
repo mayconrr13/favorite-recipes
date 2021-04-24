@@ -12,7 +12,8 @@ export const GlobalStyle = createGlobalStyle`
     --text: #242424;
     --background: #FFFFFF;
     --red: #DA3E52;
-    --gray: #E0E0E0;
+    --gray: #E7E7E7;
+    --gray-light: #F7F7F7;
   }
 
   html {

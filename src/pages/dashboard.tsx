@@ -1,95 +1,155 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import {
+  FiBarChart,
+  FiChevronDown,
+  FiClock,
+  FiHeart,
+  FiSearch,
+  FiUsers,
+} from 'react-icons/fi';
+
+import {
+  Container,
+  Header,
+  Content,
+  Controls,
+  SearchBox,
+  SortOptions,
+  SelectMenu,
+  EmptyList,
+  RecipesList,
+  Recipe,
+} from '../styles/pages/Dashboard';
 
 export default function Dashboard(): JSX.Element {
+  function hello(): void {
+    console.log('hello');
+  }
+
   return (
-    <>
+    <Container>
       <Head>
         <title>Dashboard | let&apos;s cook</title>
       </Head>
 
-      <header>
-        <img src="/" alt="logo" />
+      <Header>
+        <div>
+          <img src="/logo-header.svg" alt="logo" />
 
-        <nav>
-          <button type="button">Nova receita</button>
-          <button type="button">Sair</button>
-        </nav>
+          <nav>
+            <button type="button">Nova receita</button>
+            <button type="button">Sair</button>
+          </nav>
 
-        <button type="button">
-          <span />
-          <span />
-          <span />
-        </button>
-      </header>
+          <button type="button">
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
+      </Header>
 
-      <main>
+      <Content>
         <p>
           Olá <strong>Maycon</strong>. Você possui <strong>13</strong> receitas.
           <br /> Então... o que vamos preparar hoje?
         </p>
 
-        <div>
-          <input type="text" />
-          <button>
-            <img src="" alt="" />
-          </button>
-        </div>
+        <Controls>
+          <SearchBox>
+            <input type="text" placeholder="Receita" />
+            <button>
+              <FiSearch />
+            </button>
+          </SearchBox>
 
-        <button type="button">Todas</button>
-        <button type="button">Favoritas</button>
+          <SortOptions>
+            <button type="button" className="active">
+              Todas
+            </button>
+            <button type="button">Favoritas</button>
 
-        <select name="category" id="category">
-          <option value="meal">Refeição</option>
-          <option value="pasta">Massas</option>
-          <option value="snacks">Lanches</option>
-          <option value="desert">Sobremesas</option>
-          <option value="cakes">Bolos</option>
-          <option value="fitness">Fitness</option>
-          <option value="salads">Saladas</option>
-          <option value="vegetarian">Vegetariana</option>
-        </select>
+            <SelectMenu className="active">
+              <span>Categoria</span>
+              <button type="button">
+                <FiChevronDown />
+              </button>
+              <div>
+                <button type="button" onClick={hello}>
+                  Categoria
+                </button>
+                <button type="button" onClick={hello}>
+                  Refeição
+                </button>
+                <button type="button" onClick={hello}>
+                  Massas
+                </button>
+                <button type="button" onClick={hello}>
+                  Lanches
+                </button>
+                <button type="button" onClick={hello}>
+                  Sobremesas
+                </button>
+                <button type="button" onClick={hello}>
+                  Bolos
+                </button>
+                <button type="button" onClick={hello}>
+                  Fitness
+                </button>
+                <button type="button" onClick={hello}>
+                  Saladas
+                </button>
+                <button type="button" onClick={hello}>
+                  Vegetariana
+                </button>
+              </div>
+            </SelectMenu>
+          </SortOptions>
+        </Controls>
 
         {/* empty recipe list */}
-        <div>
-          <span>Você não ossui nenhuma receita</span>
+        {/* <EmptyList>
+          <span>Você não possui nenhuma receita</span>
           <button type="button">Nova receita</button>
-        </div>
+        </EmptyList> */}
 
         {/* empty recipe list after select category or meda a search */}
-        <span>Nenhum resultado encontrado</span>
+        {/* <EmptyList>
+          <span>Nenhum resultado encontrado</span>
+        </EmptyList> */}
 
         {/* recipe */}
-        <section>
-          <div>
-            <div>image</div>
+        <RecipesList>
+          <Recipe>
+            <div />
 
-            <Link href="/recipe/">
+            <Link href="/recipe/1">
               <a>
                 <div>
-                  <div>Panquecas com mirtilo</div>
-                  <img src="/" alt="favorite" />
+                  <h3>Panquecas com mirtilo</h3>
+                  <FiHeart />
                 </div>
 
                 <div>
                   <div>
-                    <img src="/" alt="clock" />
+                    <FiClock />
                     <span>30 minutos</span>
                   </div>
                   <div>
-                    <img src="/" alt="users" />
-                    <span>30 minutos</span>
+                    <FiUsers />
+                    <span>2 pessoas</span>
                   </div>
                   <div>
-                    <img src="/" alt="signal" />
-                    <span>30 minutos</span>
+                    <FiBarChart />
+                    <span>Iniciante</span>
                   </div>
                 </div>
               </a>
             </Link>
-          </div>
-        </section>
-      </main>
-    </>
+          </Recipe>
+        </RecipesList>
+      </Content>
+    </Container>
   );
 }
