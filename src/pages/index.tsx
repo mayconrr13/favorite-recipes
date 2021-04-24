@@ -1,27 +1,34 @@
 import Head from 'next/head';
 
+import { HomeContainer } from '../styles/pages/Home';
+
 export default function Home(): JSX.Element {
   return (
-    <div>
+    <HomeContainer>
       <Head>
         <title>Home | let&apos;s cook</title>
       </Head>
 
-      <img src="/" alt="Logo" />
+      <img src="/logo.svg" alt="Logo" />
 
-      <strong>O QUE VAMOS PREPARAR HOJE?</strong>
+      <strong>
+        O QUE VAMOS
+        <br /> PREPARAR HOJE?
+      </strong>
       <span>
-        <strong>Let&apos;s cook</strong> é uma plataforma que permite você
-        salvar suas melhores receitar e prepará-las a qualquer momento, seja
-        sozinho, com amigos ou família.
+        <strong>Let&apos;s cook</strong> é uma plataforma que permite
+        <br /> você salvar suas melhores receitas e<br /> prepará-las a qualquer
+        momento,
+        <br /> seja sozinho, com amigos
+        <br /> ou família.
       </span>
 
       <button>
         <div>
-          <img src="/" alt="gmail" />
+          <img src="/icons/google.svg" alt="gmail" />
         </div>
         <span>Entrar com Google</span>
       </button>
-    </div>
+    </HomeContainer>
   );
 }
