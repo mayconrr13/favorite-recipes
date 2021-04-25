@@ -4,7 +4,11 @@ export const Container = styled.div`
   width: 100vw;
 `;
 
-export const Content = styled.main`
+interface ContentProps {
+  isFavorite: boolean;
+}
+
+export const Content = styled.main<ContentProps>`
   width: 100%;
   padding: 1rem 0;
 
@@ -34,11 +38,20 @@ export const Content = styled.main`
         font-size: 1.75rem;
       }
 
-      svg {
-        width: 1.5rem;
-        height: auto;
+      button {
+        border: none;
+        background-color: transparent;
+        outline: none;
 
-        margin-left: 1rem;
+        margin-left: 1.5rem;
+
+        svg {
+          width: 1.5rem;
+          height: auto;
+          color: ${(props) =>
+            props.isFavorite ? 'var(--red)' : 'var(--text)'};
+          fill: ${(props) => (props.isFavorite ? 'var(--red)' : 'transparent')};
+        }
       }
     }
   }
@@ -158,6 +171,19 @@ export const RecipeDetails = styled.section`
       font-size: 1.25rem;
       color: var(--primary);
     }
+
+    button {
+      border: none;
+      background-color: transparent;
+      outline: none;
+
+      svg {
+        width: 1.25rem;
+        height: auto;
+        color: ${(props) => (props.isFavorite ? 'var(--red)' : 'var(--text)')};
+        fill: ${(props) => (props.isFavorite ? 'var(--red)' : 'transparent')};
+      }
+    }
   }
 
   @media (min-width: 900px) {
@@ -196,7 +222,7 @@ export const Ingredients = styled.div`
       padding-left: 1rem;
 
       & + li {
-        margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
       }
 
       &::before {
@@ -207,6 +233,15 @@ export const Ingredients = styled.div`
         width: 0.5rem;
         height: 0.25rem;
         background-color: var(--primary);
+      }
+    }
+  }
+
+  @media (min-width: 640px) {
+    ul {
+      li + li {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
       }
     }
   }
@@ -230,15 +265,18 @@ export const Directions = styled.div`
   display: flex;
   flex-direction: column;
 
-  p {
-    line-height: 2rem;
-  }
+  div {
+    p {
+      line-height: 2rem;
+    }
 
-  strong {
-    font-size: 1rem;
-  }
+    strong {
+      font-size: 1rem;
+      display: block;
+    }
 
-  p + strong {
-    margin-top: 1rem;
+    p + strong {
+      margin-top: 1rem;
+    }
   }
 `;

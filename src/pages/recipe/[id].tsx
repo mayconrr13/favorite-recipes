@@ -1,3 +1,4 @@
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 
 import {
@@ -11,6 +12,7 @@ import {
 } from 'react-icons/fi';
 
 import { Header } from '../../components/Header';
+import { api } from '../../services/api';
 
 import {
   Container,
@@ -22,16 +24,35 @@ import {
   Directions,
 } from '../../styles/pages/Recipe';
 
-export default function Recipe(): JSX.Element {
+interface RecipeProps {
+  id: string;
+  name: string;
+  category: string;
+  isFavorite: boolean;
+  image: string;
+  preparationTime: string;
+  yield: string;
+  level: string;
+  ingredients: string;
+  directions: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface SelectedRecipeProps {
+  recipe: RecipeProps;
+}
+
+export default function Recipe({ recipe }: SelectedRecipeProps): JSX.Element {
   return (
     <Container>
       <Head>
-        <title>Receita | Panquecas com mirtilo</title>
+        <title>Receita | {recipe.name}</title>
       </Head>
 
       <Header />
 
-      <Content>
+      <Content isFavorite={recipe.isFavorite}>
         <Controls>
           <button type="button">
             <FiChevronLeft />
@@ -52,79 +73,48 @@ export default function Recipe(): JSX.Element {
         <RecipeInfo>
           <div>
             <FiClock />
-            <span>30 minutos</span>
+            <span>{recipe.preparationTime}</span>
           </div>
           <div>
             <FiUsers />
-            <span>2 pessoas</span>
+            <span>{recipe.yield}</span>
           </div>
           <div>
             <FiBarChart />
-            <span>Iniciante</span>
+            <span>{recipe.level}</span>
           </div>
         </RecipeInfo>
 
         <div>
-          <h2>Panquecas com mirtilo</h2>
-          <FiHeart />
+          <h2>{recipe.name}</h2>
+          <button type="button" onClick={() => console.log('clicked')}>
+            <FiHeart />
+          </button>
         </div>
 
         <RecipeDetails>
           <Ingredients>
             <h3>Ingredientes</h3>
-            <ul>
-              <li>1/4 de xícara de chá de mel silvestre</li>
-              <li>1/4 de xícara de chá de mel silvestre </li>
-              <li>1/4 de xícara de chá de mel silvestre</li>
-              <li>1/4 de xícara de chá de mel silvestre</li>
-              <li>1/4 de xícara de chá de mel silvestre</li>
-              <li>1/4 de xícara de chá de mel silvestre</li>
-              <li>1/4 de xícara de chá de mel silvestre</li>
-            </ul>
+            <div dangerouslySetInnerHTML={{ __html: recipe.ingredients }} />
           </Ingredients>
 
           <Directions>
             <h3>Modo de preparo</h3>
-            <strong>Calda de Mirtilo</strong>
-            <p>
-              Ferva o mel, o açúcar demerara, os mirtilos e a água até reduzir à
-              metade do volume original. Reserve.{' '}
-            </p>
-
-            <strong>Panquecas</strong>
-            <p>
-              Em uma tigela grande, misture as farinhas, o açúcar, o fermento em
-              pó e sal. Em outra tigela, bata os ovos e, em seguida, acrescente
-              o leite e a baunilha.
-            </p>
-            <p>
-              Derreta a manteiga em uma frigideira grande de ferro fundido ou
-              chapa em fogo médio. Bata a manteiga na mistura de leite. Adicione
-              os ingredientes molhados à mistura de farinha e bata até formar
-              uma massa grossa. Não misture demais, a massa não precisa ser
-              totalmente homogênea.
-            </p>
-            <p>
-              Mantendo a frigideira em fogo médio, despeje uma concha
-              (equivalente a ¼ xícara) de massa na frigideira, para fazer uma
-              panqueca. Faça mais uma ou duas panquecas, tendo o cuidado de
-              mantê-las uniformemente espaçadas.
-            </p>
-            <p>
-              Cozinhe até que apareçam bolhas na superfície das panquecas, e as
-              partes inferiores fiquem douradas, por cerca de dois minutos. Vire
-              com uma espátula e deixe cozinhar cerca de um minuto a mais no
-              segundo lado.
-            </p>
-            <p>
-              Sirva imediatamente ou transfira para uma travessa e cubra
-              frouxamente com papel-alumínio para manter aquecido. Repita com a
-              massa restante, acrescentando mais manteiga na frigideira quando
-              necessário. Sirva com calda de mirtilos a gosto.
-            </p>
+            <div dangerouslySetInnerHTML={{ __html: recipe.directions }} />
           </Directions>
         </RecipeDetails>
       </Content>
     </Container>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const { id } = params;
+
+  const response = await api.get(`/recipes/${id}`);
+  const recipe = response.data;
+
+  return {
+    props: { recipe },
+  };
+};

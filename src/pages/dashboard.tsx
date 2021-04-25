@@ -23,7 +23,7 @@ interface RecipeProps {
   id: string;
   name: string;
   category: string;
-  favorite: boolean;
+  isFavorite: boolean;
   image: string;
   preparationTime: string;
   yield: string;
@@ -45,22 +45,24 @@ export default function Dashboard(): JSX.Element {
     [] as RecipeProps[],
   );
 
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     async function getData(): Promise<void> {
+      setIsLoading(true);
+
       const response = await api.get('/recipes');
       const recipes = response.data;
 
       setRecipeList([...recipes]);
       setFilteredList([...recipes]);
+      setIsLoading(false);
     }
 
     try {
-      setIsLoading(true);
       getData();
-      setIsLoading(false);
     } catch (error) {
+      console.log(error);
       setIsLoading(false);
     }
   }, []);
@@ -74,7 +76,7 @@ export default function Dashboard(): JSX.Element {
     const filteredRecipes = recipeList.filter((recipe) => {
       if (
         ((category === recipe.category || category === 'default') &&
-          favoriteRecipes === recipe.favorite) ||
+          favoriteRecipes === recipe.isFavorite) ||
         ((category === recipe.category || category === 'default') &&
           favoriteRecipes === false)
       ) {
@@ -197,7 +199,7 @@ export default function Dashboard(): JSX.Element {
         </Controls>
 
         {/* empty recipe list */}
-        {!isLoading && recipeList.length === 0 && (
+        {!isLoading && recipeList.length === 0 && filteredList.length === 0 && (
           <EmptyList>
             <span>Você não possui nenhuma receita</span>
             <button type="button">Nova receita</button>
@@ -205,11 +207,13 @@ export default function Dashboard(): JSX.Element {
         )}
 
         {/* empty recipe list after select category or meda a search */}
-        {!isLoading && filteredList.length === 0 && (
+        {!isLoading && filteredList.length === 0 && recipeList.length !== 0 && (
           <EmptyList>
             <span>Nenhum resultado encontrado</span>
           </EmptyList>
         )}
+
+        {isLoading && <p>loading...</p>}
 
         {/* recipe */}
         <RecipesList>

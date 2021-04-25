@@ -7,7 +7,7 @@ interface RecipeProps {
   id: string;
   name: string;
   category: string;
-  favorite: boolean;
+  isFavorite: boolean;
   image: string;
   preparationTime: string;
   yield: string;
@@ -20,14 +20,20 @@ interface RecipeCardProps {
 
 export const RecipeCard = ({ recipe }: RecipeCardProps): JSX.Element => {
   return (
-    <Container key={recipe.id} image={recipe.image}>
+    <Container
+      key={recipe.id}
+      image={recipe.image}
+      isFavorite={recipe.isFavorite}
+    >
       <div />
 
-      <Link href={`/recipe/${recipe.name}`}>
+      <Link href={`/recipe/${recipe.id}`}>
         <a>
           <div>
             <h3>{recipe.name}</h3>
-            <FiHeart />
+            <button type="button" onClick={() => console.log('clicked')}>
+              <FiHeart />
+            </button>
           </div>
 
           <div>

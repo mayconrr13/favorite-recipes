@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 interface RecipesProps {
   image: string;
+  isFavorite: boolean;
 }
 
 export const Container = styled.div<RecipesProps>`
@@ -60,10 +61,21 @@ export const Container = styled.div<RecipesProps>`
           flex: 1;
         }
 
-        svg {
-          width: 1.25rem;
-          height: auto;
-          color: #242424;
+        button {
+          border: none;
+          background-color: transparent;
+          outline: none;
+
+          margin-left: 1.5rem;
+
+          svg {
+            width: 1.5rem;
+            height: auto;
+            color: ${(props) =>
+              props.isFavorite ? 'var(--red)' : 'var(--text)'};
+            fill: ${(props) =>
+              props.isFavorite ? 'var(--red)' : 'transparent'};
+          }
         }
       }
 
