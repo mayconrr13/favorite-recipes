@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { api } from '../services/api';
 import {
   FiBarChart,
   FiChevronDown,
@@ -8,6 +10,8 @@ import {
   FiSearch,
   FiUsers,
 } from 'react-icons/fi';
+
+import { categoryOptions } from '../utils/categoriesOptions';
 
 import { Header } from '../components/Header';
 
@@ -23,9 +27,43 @@ import {
   Recipe,
 } from '../styles/pages/Dashboard';
 
+interface RecipeProps {
+  id: string;
+  name: string;
+  category: string;
+  favorite: boolean;
+  image: string;
+  preparationTime: string;
+  yield: string;
+  level: string;
+  ingredients: string;
+  directions: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export default function Dashboard(): JSX.Element {
-  function hello(): void {
-    console.log('hello');
+  const [favoriteRecipes, setFavoriteRecipes] = useState<boolean>(false);
+  const [category, setCategory] = useState<string>('default');
+  const [selectMenuIsOpen, setSelectMenuIsOpen] = useState(false);
+  const [recipeList, setRecipeList] = useState<RecipeProps[]>(
+    [] as RecipeProps[],
+  );
+
+  useEffect(() => {
+    async function getData(): Promise<void> {
+      const response = await api.get('/recipes');
+      const recipes = response.data;
+
+      setRecipeList([...recipes]);
+    }
+
+    getData();
+  }, []);
+
+  function handleSelectedCategory(type: string): void {
+    setCategory(type);
+    setSelectMenuIsOpen(false);
   }
 
   return (
@@ -51,42 +89,82 @@ export default function Dashboard(): JSX.Element {
           </SearchBox>
 
           <SortOptions>
-            <button type="button" className="active">
+            <button
+              type="button"
+              className={!favoriteRecipes ? 'active' : ''}
+              onClick={() => setFavoriteRecipes(false)}
+            >
               Todas
             </button>
-            <button type="button">Favoritas</button>
+            <button
+              type="button"
+              className={favoriteRecipes ? 'active' : ''}
+              onClick={() => setFavoriteRecipes(true)}
+            >
+              Favoritas
+            </button>
 
-            <SelectMenu className="active">
-              <span>Categoria</span>
-              <button type="button">
+            <SelectMenu menuIsOpen={selectMenuIsOpen}>
+              <span>{categoryOptions[category]}</span>
+              <button
+                type="button"
+                onClick={() => setSelectMenuIsOpen(!selectMenuIsOpen)}
+              >
                 <FiChevronDown />
               </button>
               <div>
-                <button type="button" onClick={hello}>
+                <button
+                  type="button"
+                  onClick={() => handleSelectedCategory('default')}
+                >
                   Categoria
                 </button>
-                <button type="button" onClick={hello}>
+                <button
+                  type="button"
+                  onClick={() => handleSelectedCategory('meal')}
+                >
                   Refeição
                 </button>
-                <button type="button" onClick={hello}>
+                <button
+                  type="button"
+                  onClick={() => handleSelectedCategory('pasta')}
+                >
                   Massas
                 </button>
-                <button type="button" onClick={hello}>
+                <button
+                  type="button"
+                  onClick={() => handleSelectedCategory('snacks')}
+                >
                   Lanches
                 </button>
-                <button type="button" onClick={hello}>
+                <button
+                  type="button"
+                  onClick={() => handleSelectedCategory('deserts')}
+                >
                   Sobremesas
                 </button>
-                <button type="button" onClick={hello}>
+                <button
+                  type="button"
+                  onClick={() => handleSelectedCategory('cakes')}
+                >
                   Bolos
                 </button>
-                <button type="button" onClick={hello}>
+                <button
+                  type="button"
+                  onClick={() => handleSelectedCategory('fitness')}
+                >
                   Fitness
                 </button>
-                <button type="button" onClick={hello}>
+                <button
+                  type="button"
+                  onClick={() => handleSelectedCategory('salads')}
+                >
                   Saladas
                 </button>
-                <button type="button" onClick={hello}>
+                <button
+                  type="button"
+                  onClick={() => handleSelectedCategory('vegetarian')}
+                >
                   Vegetariana
                 </button>
               </div>
@@ -107,114 +185,45 @@ export default function Dashboard(): JSX.Element {
 
         {/* recipe */}
         <RecipesList>
-          <Recipe>
-            <div />
+          {recipeList &&
+            recipeList.map((recipe) => {
+              if (
+                ((category === recipe.category || category === 'default') &&
+                  favoriteRecipes === recipe.favorite) ||
+                ((category === recipe.category || category === 'default') &&
+                  favoriteRecipes === false)
+              ) {
+                return (
+                  <Recipe key={recipe.id} image={recipe.image}>
+                    <div />
 
-            <Link href="/recipe/1">
-              <a>
-                <div>
-                  <h3>Panquecas com mirtilo</h3>
-                  <FiHeart />
-                </div>
+                    <Link href={`/recipe/${recipe.name}`}>
+                      <a>
+                        <div>
+                          <h3>{recipe.name}</h3>
+                          <FiHeart />
+                        </div>
 
-                <div>
-                  <div>
-                    <FiClock />
-                    <span>30 minutos</span>
-                  </div>
-                  <div>
-                    <FiUsers />
-                    <span>2 pessoas</span>
-                  </div>
-                  <div>
-                    <FiBarChart />
-                    <span>Iniciante</span>
-                  </div>
-                </div>
-              </a>
-            </Link>
-          </Recipe>
-          <Recipe>
-            <div />
-
-            <Link href="/recipe/1">
-              <a>
-                <div>
-                  <h3>Panquecas com mirtilo</h3>
-                  <FiHeart />
-                </div>
-
-                <div>
-                  <div>
-                    <FiClock />
-                    <span>30 minutos</span>
-                  </div>
-                  <div>
-                    <FiUsers />
-                    <span>2 pessoas</span>
-                  </div>
-                  <div>
-                    <FiBarChart />
-                    <span>Iniciante</span>
-                  </div>
-                </div>
-              </a>
-            </Link>
-          </Recipe>
-          <Recipe>
-            <div />
-
-            <Link href="/recipe/1">
-              <a>
-                <div>
-                  <h3>Panquecas com mirtilo</h3>
-                  <FiHeart />
-                </div>
-
-                <div>
-                  <div>
-                    <FiClock />
-                    <span>30 minutos</span>
-                  </div>
-                  <div>
-                    <FiUsers />
-                    <span>2 pessoas</span>
-                  </div>
-                  <div>
-                    <FiBarChart />
-                    <span>Iniciante</span>
-                  </div>
-                </div>
-              </a>
-            </Link>
-          </Recipe>
-          <Recipe>
-            <div />
-
-            <Link href="/recipe/1">
-              <a>
-                <div>
-                  <h3>Panquecas com mirtilo</h3>
-                  <FiHeart />
-                </div>
-
-                <div>
-                  <div>
-                    <FiClock />
-                    <span>30 minutos</span>
-                  </div>
-                  <div>
-                    <FiUsers />
-                    <span>2 pessoas</span>
-                  </div>
-                  <div>
-                    <FiBarChart />
-                    <span>Iniciante</span>
-                  </div>
-                </div>
-              </a>
-            </Link>
-          </Recipe>
+                        <div>
+                          <div>
+                            <FiClock />
+                            <span>{recipe.preparationTime}</span>
+                          </div>
+                          <div>
+                            <FiUsers />
+                            <span>{recipe.yield}</span>
+                          </div>
+                          <div>
+                            <FiBarChart />
+                            <span>{recipe.level}</span>
+                          </div>
+                        </div>
+                      </a>
+                    </Link>
+                  </Recipe>
+                );
+              }
+            })}
         </RecipesList>
       </Content>
     </Container>

@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100vw;
+  min-height: 100vh;
+  z-index: -1;
 `;
 
 export const Content = styled.main`
@@ -119,7 +121,11 @@ export const SortOptions = styled.div`
   }
 `;
 
-export const SelectMenu = styled.div`
+interface SelecMenuProps {
+  menuIsOpen: boolean;
+}
+
+export const SelectMenu = styled.div<SelecMenuProps>`
   margin-left: 0.75rem;
   flex: 1;
   height: 100%;
@@ -130,6 +136,7 @@ export const SelectMenu = styled.div`
   justify-content: space-between;
 
   position: relative;
+  z-index: 50;
 
   span {
     flex: 1;
@@ -139,6 +146,7 @@ export const SelectMenu = styled.div`
   > button {
     width: 2rem;
     height: 100%;
+    z-index: 500;
 
     outline: none;
     border: none;
@@ -151,11 +159,9 @@ export const SelectMenu = styled.div`
     left: 0;
     z-index: 5;
 
-    display: flex;
+    display: ${({ menuIsOpen }) => (menuIsOpen ? 'flex' : 'none')};
     flex-direction: column;
     align-items: center;
-
-    display: none;
 
     width: 100%;
     height: 13.5rem;
@@ -264,7 +270,11 @@ export const RecipesList = styled.section`
   }
 `;
 
-export const Recipe = styled.div`
+interface RecipesProps {
+  image: string;
+}
+
+export const Recipe = styled.div<RecipesProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -277,7 +287,7 @@ export const Recipe = styled.div`
     width: 100%;
     background-color: tomato;
 
-    background-image: url('/home-background.jpg');
+    background-image: url(${(props) => props.image});
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
