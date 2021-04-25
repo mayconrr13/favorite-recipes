@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/dist/client/router';
 import Head from 'next/head';
 
 import {
@@ -44,6 +45,12 @@ interface SelectedRecipeProps {
 }
 
 export default function Recipe({ recipe }: SelectedRecipeProps): JSX.Element {
+  const router = useRouter();
+
+  function handleBackToDashboard() {
+    router.push('/dashboard');
+  }
+
   return (
     <Container>
       <Head>
@@ -54,15 +61,21 @@ export default function Recipe({ recipe }: SelectedRecipeProps): JSX.Element {
 
       <Content isFavorite={recipe.isFavorite}>
         <Controls>
-          <button type="button">
+          <button type="button" onClick={handleBackToDashboard}>
             <FiChevronLeft />
             <span>Voltar</span>
           </button>
-          <button type="button">
+          <button
+            type="button"
+            onClick={() => console.log(`editar id:${recipe.id}`)}
+          >
             <FiEdit />
             <span>Editar</span>
           </button>
-          <button type="button">
+          <button
+            type="button"
+            onClick={() => console.log(`deletar id:${recipe.id}`)}
+          >
             <FiTrash />
             <span>Deletar</span>
           </button>

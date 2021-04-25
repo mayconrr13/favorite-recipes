@@ -24,6 +24,12 @@ export const Content = styled.main`
       color: var(--primary);
     }
   }
+
+  @media (min-width: 740px) {
+    > p {
+      font-size: 1.25rem;
+    }
+  }
 `;
 
 export const Controls = styled.div`

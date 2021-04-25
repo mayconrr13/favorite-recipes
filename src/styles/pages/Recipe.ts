@@ -55,6 +55,16 @@ export const Content = styled.main<ContentProps>`
       }
     }
   }
+
+  @media (min-width: 740px) {
+    > div {
+      &:nth-child(4) {
+        h2 {
+          font-size: 2.25rem;
+        }
+      }
+    }
+  }
 `;
 
 export const Controls = styled.div`
@@ -171,19 +181,6 @@ export const RecipeDetails = styled.section`
       font-size: 1.25rem;
       color: var(--primary);
     }
-
-    button {
-      border: none;
-      background-color: transparent;
-      outline: none;
-
-      svg {
-        width: 1.25rem;
-        height: auto;
-        color: ${(props) => (props.isFavorite ? 'var(--red)' : 'var(--text)')};
-        fill: ${(props) => (props.isFavorite ? 'var(--red)' : 'transparent')};
-      }
-    }
   }
 
   @media (min-width: 900px) {
@@ -192,6 +189,10 @@ export const RecipeDetails = styled.section`
     justify-content: space-between;
 
     > div {
+      h3 {
+        font-size: 1.5rem;
+      }
+
       &:nth-child(1) {
         width: 30%;
       }
