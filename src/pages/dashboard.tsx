@@ -24,8 +24,8 @@ import {
   SelectMenu,
   EmptyList,
   RecipesList,
-  Recipe,
 } from '../styles/pages/Dashboard';
+import { RecipeCard } from '../components/RecipeCard';
 
 interface RecipeProps {
   id: string;
@@ -193,35 +193,7 @@ export default function Dashboard(): JSX.Element {
                 ((category === recipe.category || category === 'default') &&
                   favoriteRecipes === false)
               ) {
-                return (
-                  <Recipe key={recipe.id} image={recipe.image}>
-                    <div />
-
-                    <Link href={`/recipe/${recipe.name}`}>
-                      <a>
-                        <div>
-                          <h3>{recipe.name}</h3>
-                          <FiHeart />
-                        </div>
-
-                        <div>
-                          <div>
-                            <FiClock />
-                            <span>{recipe.preparationTime}</span>
-                          </div>
-                          <div>
-                            <FiUsers />
-                            <span>{recipe.yield}</span>
-                          </div>
-                          <div>
-                            <FiBarChart />
-                            <span>{recipe.level}</span>
-                          </div>
-                        </div>
-                      </a>
-                    </Link>
-                  </Recipe>
-                );
+                return <RecipeCard key={recipe.id} recipe={recipe} />;
               }
             })}
         </RecipesList>
