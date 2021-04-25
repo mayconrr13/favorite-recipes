@@ -1,15 +1,7 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { api } from '../services/api';
-import {
-  FiBarChart,
-  FiChevronDown,
-  FiClock,
-  FiHeart,
-  FiSearch,
-  FiUsers,
-} from 'react-icons/fi';
+import { FiChevronDown, FiSearch } from 'react-icons/fi';
 
 import { categoryOptions } from '../utils/categoriesOptions';
 
@@ -49,6 +41,11 @@ export default function Dashboard(): JSX.Element {
   const [recipeList, setRecipeList] = useState<RecipeProps[]>(
     [] as RecipeProps[],
   );
+  const [filteredList, setFilteredList] = useState<RecipeProps[]>(
+    [] as RecipeProps[],
+  );
+
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     async function getData(): Promise<void> {
@@ -56,10 +53,37 @@ export default function Dashboard(): JSX.Element {
       const recipes = response.data;
 
       setRecipeList([...recipes]);
+      setFilteredList([...recipes]);
     }
 
-    getData();
+    try {
+      setIsLoading(true);
+      getData();
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+    }
   }, []);
+
+  // filter list by selected parameters
+  useEffect(() => {
+    if (recipeList.length === 0) {
+      setFilteredList([]);
+    }
+
+    const filteredRecipes = recipeList.filter((recipe) => {
+      if (
+        ((category === recipe.category || category === 'default') &&
+          favoriteRecipes === recipe.favorite) ||
+        ((category === recipe.category || category === 'default') &&
+          favoriteRecipes === false)
+      ) {
+        return recipe;
+      }
+    });
+
+    setFilteredList([...filteredRecipes]);
+  }, [category, favoriteRecipes, recipeList]);
 
   function handleSelectedCategory(type: string): void {
     setCategory(type);
@@ -173,28 +197,25 @@ export default function Dashboard(): JSX.Element {
         </Controls>
 
         {/* empty recipe list */}
-        {/* <EmptyList>
-          <span>Você não possui nenhuma receita</span>
-          <button type="button">Nova receita</button>
-        </EmptyList> */}
+        {!isLoading && recipeList.length === 0 && (
+          <EmptyList>
+            <span>Você não possui nenhuma receita</span>
+            <button type="button">Nova receita</button>
+          </EmptyList>
+        )}
 
         {/* empty recipe list after select category or meda a search */}
-        {/* <EmptyList>
-          <span>Nenhum resultado encontrado</span>
-        </EmptyList> */}
+        {!isLoading && filteredList.length === 0 && (
+          <EmptyList>
+            <span>Nenhum resultado encontrado</span>
+          </EmptyList>
+        )}
 
         {/* recipe */}
         <RecipesList>
-          {recipeList &&
-            recipeList.map((recipe) => {
-              if (
-                ((category === recipe.category || category === 'default') &&
-                  favoriteRecipes === recipe.favorite) ||
-                ((category === recipe.category || category === 'default') &&
-                  favoriteRecipes === false)
-              ) {
-                return <RecipeCard key={recipe.id} recipe={recipe} />;
-              }
+          {filteredList &&
+            filteredList.map((recipe) => {
+              return <RecipeCard key={recipe.id} recipe={recipe} />;
             })}
         </RecipesList>
       </Content>
