@@ -1,5 +1,7 @@
 import Link from 'next/link';
+import { useState } from 'react';
 import { FiBarChart, FiClock, FiHeart, FiUsers } from 'react-icons/fi';
+import { useRecipe } from '../hooks/useRecipe';
 
 import { Container } from '../styles/components/RecipeCard';
 
@@ -19,39 +21,50 @@ interface RecipeCardProps {
 }
 
 export const RecipeCard = ({ recipe }: RecipeCardProps): JSX.Element => {
+  const { toogleFavorite } = useRecipe();
+
+  const [recipeIsFavorite, setRecipeIsFavorite] = useState<boolean>(
+    recipe.isFavorite,
+  );
+
+  async function handleFavoriteRecipe(id: string): Promise<void> {
+    await toogleFavorite(id, recipeIsFavorite);
+    setRecipeIsFavorite(!recipeIsFavorite);
+  }
+
   return (
     <Container
       key={recipe.id}
       image={recipe.image}
-      isFavorite={recipe.isFavorite}
+      isFavorite={recipeIsFavorite}
     >
       <div />
 
-      <Link href={`/recipe/${recipe.id}`}>
-        <a>
-          <div>
-            <h3>{recipe.name}</h3>
-            <button type="button" onClick={() => console.log('clicked')}>
-              <FiHeart />
-            </button>
-          </div>
+      <section>
+        <div>
+          <Link href={`/recipe/${recipe.id}`}>
+            <a>{recipe.name}</a>
+          </Link>
+          <button type="button" onClick={() => handleFavoriteRecipe(recipe.id)}>
+            <FiHeart />
+          </button>
+        </div>
 
+        <div>
           <div>
-            <div>
-              <FiClock />
-              <span>{recipe.preparationTime}</span>
-            </div>
-            <div>
-              <FiUsers />
-              <span>{recipe.yield}</span>
-            </div>
-            <div>
-              <FiBarChart />
-              <span>{recipe.level}</span>
-            </div>
+            <FiClock />
+            <span>{recipe.preparationTime}</span>
           </div>
-        </a>
-      </Link>
+          <div>
+            <FiUsers />
+            <span>{recipe.yield}</span>
+          </div>
+          <div>
+            <FiBarChart />
+            <span>{recipe.level}</span>
+          </div>
+        </div>
+      </section>
     </Container>
   );
 };

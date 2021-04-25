@@ -1,6 +1,7 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/dist/client/router';
 import Head from 'next/head';
+import { useState } from 'react';
 
 import {
   FiBarChart,
@@ -13,6 +14,7 @@ import {
 } from 'react-icons/fi';
 
 import { Header } from '../../components/Header';
+import { useRecipe } from '../../hooks/useRecipe';
 import { api } from '../../services/api';
 
 import {
@@ -45,10 +47,20 @@ interface SelectedRecipeProps {
 }
 
 export default function Recipe({ recipe }: SelectedRecipeProps): JSX.Element {
+  const { editRecipe, deleteRecipe, toogleFavorite } = useRecipe();
   const router = useRouter();
 
-  function handleBackToDashboard() {
+  const [recipeIsFavorite, setRecipeIsFavorite] = useState<boolean>(
+    recipe.isFavorite,
+  );
+
+  function handleBackToDashboard(): void {
     router.push('/dashboard');
+  }
+
+  async function handleFavoriteRecipe(id: string): Promise<void> {
+    await toogleFavorite(id, recipeIsFavorite);
+    setRecipeIsFavorite(!recipeIsFavorite);
   }
 
   return (
@@ -59,7 +71,7 @@ export default function Recipe({ recipe }: SelectedRecipeProps): JSX.Element {
 
       <Header />
 
-      <Content isFavorite={recipe.isFavorite}>
+      <Content isFavorite={recipeIsFavorite}>
         <Controls>
           <button type="button" onClick={handleBackToDashboard}>
             <FiChevronLeft />
@@ -67,15 +79,12 @@ export default function Recipe({ recipe }: SelectedRecipeProps): JSX.Element {
           </button>
           <button
             type="button"
-            onClick={() => console.log(`editar id:${recipe.id}`)}
+            onClick={() => editRecipe(recipe, recipeIsFavorite)}
           >
             <FiEdit />
             <span>Editar</span>
           </button>
-          <button
-            type="button"
-            onClick={() => console.log(`deletar id:${recipe.id}`)}
-          >
+          <button type="button" onClick={() => deleteRecipe(recipe.id)}>
             <FiTrash />
             <span>Deletar</span>
           </button>
@@ -100,7 +109,7 @@ export default function Recipe({ recipe }: SelectedRecipeProps): JSX.Element {
 
         <div>
           <h2>{recipe.name}</h2>
-          <button type="button" onClick={() => console.log('clicked')}>
+          <button type="button" onClick={() => handleFavoriteRecipe(recipe.id)}>
             <FiHeart />
           </button>
         </div>

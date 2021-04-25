@@ -32,14 +32,16 @@ export const Container = styled.div<RecipesProps>`
     }
   }
 
-  a {
+  section {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
 
     width: calc(100% - 1.5rem);
+    height: 10rem;
 
-    margin-top: -2rem;
+    margin-top: -4rem;
     padding: 1rem;
 
     background-color: var(--background);
@@ -56,9 +58,11 @@ export const Container = styled.div<RecipesProps>`
       &:nth-child(1) {
         margin-bottom: 1rem;
 
-        h3 {
+        a {
           font-size: 1.25rem;
+          font-weight: 700;
           flex: 1;
+          text-decoration: none;
         }
 
         button {

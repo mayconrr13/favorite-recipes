@@ -1,9 +1,12 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useEffect, useState } from 'react';
+import { useRecipe } from '../hooks/useRecipe';
 import { Container } from '../styles/components/Header';
 
 export const Header = (): JSX.Element => {
+  const { addRecipe } = useRecipe();
+
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
   const [windowWidth, setWindowWidth] = useState<number>(0);
 
@@ -21,6 +24,7 @@ export const Header = (): JSX.Element => {
     return () => {
       window.removeEventListener('resize', handleCloseMenuDueToWindowWidth);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [windowWidth]);
 
   return (
@@ -29,7 +33,9 @@ export const Header = (): JSX.Element => {
         <img src="/logo-header.svg" alt="logo" />
 
         <nav onClick={() => setMenuIsOpen(false)}>
-          <button type="button">Nova receita</button>
+          <button type="button" onClick={addRecipe}>
+            Nova receita
+          </button>
           <button type="button">Sair</button>
         </nav>
 
