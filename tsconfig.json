@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/utils/recipesList copy.js"  ],
+, "src/utils/recipesList copy.js", "src/utils/getRandomImage.js"  ],
   "exclude": [
     "node_modules"
   ]

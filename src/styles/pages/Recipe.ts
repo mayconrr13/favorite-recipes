@@ -6,6 +6,7 @@ export const Container = styled.div`
 
 interface ContentProps {
   isFavorite: boolean;
+  image: string;
 }
 
 export const Content = styled.main<ContentProps>`
@@ -18,7 +19,7 @@ export const Content = styled.main<ContentProps>`
       width: 100%;
       height: 400px;
 
-      background-image: url('/home-background.jpg');
+      background-image: url(${(props) => props.image});
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;

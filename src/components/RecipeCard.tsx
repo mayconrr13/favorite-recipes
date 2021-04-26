@@ -21,10 +21,10 @@ interface RecipeCardProps {
 }
 
 export const RecipeCard = ({ recipe }: RecipeCardProps): JSX.Element => {
-  const { toogleFavorite } = useRecipe();
+  const { toogleFavorite, favoriteList } = useRecipe();
 
   const [recipeIsFavorite, setRecipeIsFavorite] = useState<boolean>(
-    recipe.isFavorite,
+    favoriteList.includes(recipe.id),
   );
 
   async function handleFavoriteRecipe(id: string): Promise<void> {
@@ -36,7 +36,7 @@ export const RecipeCard = ({ recipe }: RecipeCardProps): JSX.Element => {
     <Container
       key={recipe.id}
       image={recipe.image}
-      isFavorite={recipeIsFavorite}
+      isFavorite={favoriteList.includes(recipe.id)}
     >
       <div />
 

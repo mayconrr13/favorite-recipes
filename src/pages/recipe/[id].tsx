@@ -71,7 +71,7 @@ export default function Recipe({ recipe }: SelectedRecipeProps): JSX.Element {
 
       <Header />
 
-      <Content isFavorite={recipeIsFavorite}>
+      <Content isFavorite={recipeIsFavorite} image={recipe.image}>
         <Controls>
           <button type="button" onClick={handleBackToDashboard}>
             <FiChevronLeft />

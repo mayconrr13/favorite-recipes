@@ -8,7 +8,7 @@ export const Container = styled.div`
 
 export const Content = styled.main`
   width: 100%;
-  max-width: 1152px;
+  max-width: 1184px;
   padding: 1rem;
 
   margin: 0 auto;
@@ -40,6 +40,7 @@ export const Controls = styled.div`
   width: 100%;
 
   margin-top: 1.5rem;
+  padding: 0 1rem;
 
   @media (min-width: 740px) {
     flex-direction: row-reverse;
@@ -218,6 +219,8 @@ export const EmptyList = styled.div`
   align-items: center;
   justify-content: center;
 
+  padding: 0 1rem;
+
   width: 100%;
   height: 10rem;
 
@@ -272,6 +275,7 @@ export const RecipesList = styled.section`
   }
 
   @media (min-width: 1100px) {
-    max-width: inherit;
+    max-width: 1184px;
+    justify-content: flex-start;
   }
 `;

@@ -111,4 +111,8 @@ export const Container = styled.div<RecipesProps>`
       }
     }
   }
+
+  @media (min-width: 1100px) {
+    margin: 0 1rem;
+  }
 `;

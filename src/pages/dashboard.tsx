@@ -36,16 +36,15 @@ interface RecipeProps {
 }
 
 export default function Dashboard(): JSX.Element {
-  const { favoriteList } = useRecipe();
+  const { addRecipe, favoriteList, setFavoriteList } = useRecipe();
+
   const [favoriteRecipes, setFavoriteRecipes] = useState<boolean>(false);
   const [category, setCategory] = useState<string>('default');
   const [selectMenuIsOpen, setSelectMenuIsOpen] = useState(false);
   const [recipeList, setRecipeList] = useState<RecipeProps[]>(
     [] as RecipeProps[],
   );
-  const [filteredList, setFilteredList] = useState<RecipeProps[]>(
-    [] as RecipeProps[],
-  );
+  const [searchedTerm, setSearchedTerm] = useState<string>('');
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -56,53 +55,40 @@ export default function Dashboard(): JSX.Element {
       const response = await api.get('/recipes');
       const recipes = response.data;
 
+      //setting recipes
       setRecipeList([...recipes]);
-      setFilteredList([...recipes]);
+
+      //setting fevorite list
+      const checkingStoragedFavoriteList: string[] = recipes
+        .filter((recipe) => recipe.isFavorite)
+        .map((recipe) => recipe.id);
+      console.log(checkingStoragedFavoriteList);
+
+      localStorage.setItem(
+        '@favorites',
+        JSON.stringify([...checkingStoragedFavoriteList]),
+      );
+      setFavoriteList([...checkingStoragedFavoriteList]);
       setIsLoading(false);
     }
 
     try {
       getData();
     } catch (error) {
-      console.log(error);
+      console.log('Erro ao acessar o banco de dados');
       setIsLoading(false);
     }
   }, []);
 
-  // filter list by selected parameters
-  useEffect(() => {
-    if (favoriteRecipes) {
-      const filteredRecipes = recipeList.filter((recipe) => {
-        const checkRecipeOnStorage = localStorage.getItem('@favorites');
-
-        if (checkRecipeOnStorage) {
-          if (
-            (category === recipe.category || category === 'default') &&
-            favoriteRecipes === checkRecipeOnStorage.includes(recipe.id)
-          ) {
-            return recipe;
-          }
-        } else {
-          localStorage.setItem('@favorites', JSON.stringify([]));
-          return;
-        }
-      });
-      setFilteredList([...filteredRecipes]);
-      return;
-    } else {
-      const filteredRecipes = recipeList.filter((recipe) => {
-        if (category === recipe.category || category === 'default') {
-          return recipe;
-        }
-      });
-      setFilteredList([...filteredRecipes]);
-      return;
-    }
-  }, [category, favoriteRecipes, recipeList, favoriteList]);
-
   function handleSelectedCategory(type: string): void {
     setCategory(type);
     setSelectMenuIsOpen(false);
+  }
+
+  function handleAccentuation(string: string): string {
+    const parsed = string.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+    return parsed;
   }
 
   return (
@@ -128,8 +114,13 @@ export default function Dashboard(): JSX.Element {
 
         <Controls>
           <SearchBox>
-            <input type="text" placeholder="Receita" />
-            <button>
+            <input
+              type="text"
+              placeholder="Receita"
+              value={searchedTerm}
+              onChange={(e) => setSearchedTerm(e.target.value)}
+            />
+            <button type="button">
               <FiSearch />
             </button>
           </SearchBox>
@@ -219,28 +210,54 @@ export default function Dashboard(): JSX.Element {
         </Controls>
 
         {/* empty recipe list */}
-        {!isLoading && recipeList.length === 0 && filteredList.length === 0 && (
+        {!isLoading && recipeList.length === 0 && (
           <EmptyList>
             <span>Você não possui nenhuma receita</span>
-            <button type="button">Nova receita</button>
+            <button type="button" onClick={addRecipe}>
+              Nova receita
+            </button>
           </EmptyList>
         )}
 
         {/* empty recipe list after select category or meda a search */}
-        {!isLoading && filteredList.length === 0 && recipeList.length !== 0 && (
+        {/* {!isLoading && filteredList.length === 0 && recipeList.length !== 0 && (
           <EmptyList>
             <span>Nenhum resultado encontrado</span>
           </EmptyList>
-        )}
+        )} */}
 
         {isLoading && recipeList.length === 0 && <p>loading...</p>}
 
         {/* recipe */}
         <RecipesList>
-          {filteredList &&
-            filteredList.map((recipe) => {
-              return <RecipeCard key={recipe.id} recipe={recipe} />;
-            })}
+          {recipeList &&
+            recipeList
+              .filter((recipe) => {
+                if (favoriteRecipes === false) {
+                  return recipe;
+                }
+
+                return favoriteList.includes(recipe.id);
+              })
+              .filter((recipe) => {
+                if (category === 'default') {
+                  return recipe;
+                }
+
+                return recipe.category === category;
+              })
+              .filter((recipe) => {
+                if (searchedTerm === '') {
+                  return recipe;
+                }
+
+                return handleAccentuation(recipe.name.toLowerCase()).includes(
+                  handleAccentuation(searchedTerm.toLowerCase()),
+                );
+              })
+              .map((recipe) => {
+                return <RecipeCard key={recipe.id} recipe={recipe} />;
+              })}
         </RecipesList>
       </Content>
     </Container>
