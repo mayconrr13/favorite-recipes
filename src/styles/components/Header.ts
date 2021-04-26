@@ -64,7 +64,7 @@ export const Container = styled.header<ToggleMenu>`
       background-color: transparent;
       outline: none;
 
-      z-index: 9999;
+      z-index: 999;
 
       span {
         display: block;
@@ -112,6 +112,7 @@ export const Container = styled.header<ToggleMenu>`
 
         opacity: 1;
         transform: translateY(0);
+        background-color: transparent;
 
         transition: none;
 

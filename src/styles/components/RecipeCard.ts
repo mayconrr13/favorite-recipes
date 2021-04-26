@@ -16,7 +16,7 @@ export const Container = styled.div<RecipesProps>`
 
   > div {
     width: 100%;
-    background-color: tomato;
+    background-color: var(--text);
 
     background-image: url(${(props) => props.image});
     background-position: center;

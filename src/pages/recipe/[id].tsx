@@ -2,6 +2,8 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/dist/client/router';
 import Head from 'next/head';
 import { useState } from 'react';
+import { useRecipe } from '../../hooks/useRecipe';
+import { api } from '../../services/api';
 
 import {
   FiBarChart,
@@ -14,8 +16,8 @@ import {
 } from 'react-icons/fi';
 
 import { Header } from '../../components/Header';
-import { useRecipe } from '../../hooks/useRecipe';
-import { api } from '../../services/api';
+import { EditRecipeModal } from '../../components/EditRecipeModal';
+import { DeleteRecipeModal } from '../../components/DeleteRecipeModal';
 
 import {
   Container,
@@ -47,12 +49,14 @@ interface SelectedRecipeProps {
 }
 
 export default function Recipe({ recipe }: SelectedRecipeProps): JSX.Element {
-  const { editRecipe, deleteRecipe, toogleFavorite } = useRecipe();
+  const { toogleFavorite } = useRecipe();
   const router = useRouter();
 
   const [recipeIsFavorite, setRecipeIsFavorite] = useState<boolean>(
     recipe.isFavorite,
   );
+  const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false);
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
 
   function handleBackToDashboard(): void {
     router.push('/dashboard');
@@ -63,11 +67,31 @@ export default function Recipe({ recipe }: SelectedRecipeProps): JSX.Element {
     setRecipeIsFavorite(!recipeIsFavorite);
   }
 
+  function closeEditModal(): void {
+    setEditModalIsOpen(false);
+  }
+
+  function closeDeleteModal(): void {
+    setDeleteModalIsOpen(false);
+  }
+
   return (
     <Container>
       <Head>
         <title>Receita | {recipe.name}</title>
       </Head>
+
+      <EditRecipeModal
+        isOpen={editModalIsOpen}
+        closeModal={closeEditModal}
+        data={{ recipe, recipeIsFavorite }}
+      />
+
+      <DeleteRecipeModal
+        isOpen={deleteModalIsOpen}
+        closeModal={closeDeleteModal}
+        id={recipe.id}
+      />
 
       <Header />
 
@@ -77,14 +101,11 @@ export default function Recipe({ recipe }: SelectedRecipeProps): JSX.Element {
             <FiChevronLeft />
             <span>Voltar</span>
           </button>
-          <button
-            type="button"
-            onClick={() => editRecipe(recipe, recipeIsFavorite)}
-          >
+          <button type="button" onClick={() => setEditModalIsOpen(true)}>
             <FiEdit />
             <span>Editar</span>
           </button>
-          <button type="button" onClick={() => deleteRecipe(recipe.id)}>
+          <button type="button" onClick={() => setDeleteModalIsOpen(true)}>
             <FiTrash />
             <span>Deletar</span>
           </button>

@@ -1,13 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { useRouter } from 'next/dist/client/router';
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { createContext, ReactNode, useContext, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { api } from '../services/api';
 import { getRandomImage } from '../utils/getRandomImage';

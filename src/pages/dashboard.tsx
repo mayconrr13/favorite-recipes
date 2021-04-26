@@ -16,9 +16,11 @@ import {
   SelectMenu,
   EmptyList,
   RecipesList,
+  Loading,
 } from '../styles/pages/Dashboard';
 import { RecipeCard } from '../components/RecipeCard';
 import { useRecipe } from '../hooks/useRecipe';
+import { AddRecipeModal } from '../components/AddRecipeModal';
 
 interface RecipeProps {
   id: string;
@@ -226,7 +228,11 @@ export default function Dashboard(): JSX.Element {
           </EmptyList>
         )} */}
 
-        {isLoading && recipeList.length === 0 && <p>loading...</p>}
+        {isLoading && recipeList.length === 0 && (
+          <Loading>
+            <span />
+          </Loading>
+        )}
 
         {/* recipe */}
         <RecipesList>

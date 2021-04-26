@@ -23,6 +23,8 @@ export const Content = styled.main<ContentProps>`
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
+
+      background-color: var(--text);
     }
 
     /* title section */
@@ -30,7 +32,7 @@ export const Content = styled.main<ContentProps>`
       margin: 2rem auto;
       padding: 0 1rem;
 
-      max-width: 1120px;
+      max-width: 1152px;
 
       display: flex;
       align-items: center;
@@ -70,7 +72,7 @@ export const Content = styled.main<ContentProps>`
 
 export const Controls = styled.div`
   width: 100%;
-  max-width: 1120px;
+  max-width: 1152px;
   padding: 0 1rem 1rem 1rem;
   margin: 0 auto;
 
@@ -108,6 +110,7 @@ export const Controls = styled.div`
       span {
         display: block;
         padding: 0.75rem;
+        font-size: 1.25rem;
       }
 
       &:last-child {
@@ -167,7 +170,7 @@ export const RecipeDetails = styled.section`
   align-items: center;
 
   width: 100%;
-  max-width: 1120px;
+  max-width: 1152px;
 
   margin: 2rem auto;
   padding: 0 1rem;

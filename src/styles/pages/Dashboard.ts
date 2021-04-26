@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const Container = styled.div`
   width: 100vw;
@@ -241,6 +241,37 @@ export const EmptyList = styled.div`
     &:hover {
       filter: brightness(0.9);
     }
+  }
+`;
+
+const spinning = keyframes`
+  0% {
+    transform: rotateZ(0);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+`;
+
+export const Loading = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 1rem;
+
+  width: 100%;
+  height: 10rem;
+
+  span {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid;
+    border-color: var(--primary) transparent transparent transparent;
+
+    animation: ${spinning} 1s linear infinite;
   }
 `;
 

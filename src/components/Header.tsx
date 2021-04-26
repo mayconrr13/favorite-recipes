@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useEffect, useState } from 'react';
-import { useRecipe } from '../hooks/useRecipe';
 import { Container } from '../styles/components/Header';
+import { AddRecipeModal } from './AddRecipeModal';
 
 export const Header = (): JSX.Element => {
-  const { addRecipe } = useRecipe();
-
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
+  const [addModalIsOpen, setAddModalIsOpen] = useState<boolean>(false);
+
   const [windowWidth, setWindowWidth] = useState<number>(0);
 
   const handleCloseMenuDueToWindowWidth = (): void => {
@@ -27,13 +27,17 @@ export const Header = (): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [windowWidth]);
 
+  function closeModal(): void {
+    setAddModalIsOpen(false);
+  }
+
   return (
     <Container menuIsOpen={menuIsOpen}>
       <div>
         <img src="/logo-header.svg" alt="logo" />
 
         <nav onClick={() => setMenuIsOpen(false)}>
-          <button type="button" onClick={addRecipe}>
+          <button type="button" onClick={() => setAddModalIsOpen(true)}>
             Nova receita
           </button>
           <button type="button">Sair</button>
@@ -45,6 +49,8 @@ export const Header = (): JSX.Element => {
           <span />
         </button>
       </div>
+
+      <AddRecipeModal isOpen={addModalIsOpen} closeModal={closeModal} />
     </Container>
   );
 };
