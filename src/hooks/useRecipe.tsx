@@ -4,7 +4,6 @@ import { useRouter } from 'next/dist/client/router';
 import { createContext, ReactNode, useContext, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { api } from '../services/api';
-import { getRandomImage } from '../utils/getRandomImage';
 
 interface RecipeProviderProps {
   children: ReactNode;
@@ -21,13 +20,13 @@ interface RecipeProps {
   level: string;
   ingredients: string;
   directions: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 interface RecipeContextData {
-  addRecipe: () => Promise<void>;
-  editRecipe: (recipe: RecipeProps, isFavorite: boolean) => Promise<void>;
+  addRecipe: (recipe: Omit<RecipeProps, 'id'>) => Promise<void>;
+  editRecipe: (recipe: RecipeProps) => Promise<void>;
   deleteRecipe: (id: string) => Promise<void>;
   toogleFavorite: (id: string, isFavorite: boolean) => Promise<void>;
   favoriteList: string[];
@@ -54,28 +53,14 @@ export function RecipeProvider({ children }: RecipeProviderProps) {
   }
 
   //add recipe
-  async function addRecipe(): Promise<void> {
-    const newImage = await getRandomImage();
-
+  async function addRecipe(recipe: Omit<RecipeProps, 'id'>): Promise<void> {
     try {
-      const newRecipe = {
-        category: 'meal',
-        createdAt: '12/04/2021',
-        directions:
-          '<strong>Calda de Mirtilo</strong><p>Ferva o mel, o açúcar demerara, os mirtilos e a água até reduzir à metade do volume original. Reserve.</p><strong>Panquecas</strong><p>Em uma tigela grande, misture as farinhas, o açúcar, o fermento em pó e sal. Em outra tigela, bata os ovos e, em seguida, acrescente o leite e a baunilha.</p><p> Derreta a manteiga em uma frigideira grande de ferro fundido ou chapa em fogo médio. Bata a manteiga na mistura de leite. Adicione os ingredientes molhados à mistura de farinha e bata até formar uma massa grossa. Não misture demais, a massa não precisa ser totalmente homogênea.</p><p>Mantendo a frigideira em fogo médio, despeje uma concha (equivalente a ¼ xícara) de massa na frigideira, para fazer uma panqueca. Faça mais uma ou duas panquecas, tendo o cuidado de mantê-las uniformemente espaçadas.</p><p>Cozinhe até que apareçam bolhas na superfície das panquecas, e as partes inferiores fiquem douradas, por cerca de dois minutos. Vire com uma espátula e deixe cozinhar cerca de um minuto a mais no segundo lado.</p><p>Sirva imediatamente ou transfira para uma travessa e cubra frouxamente com papel-alumínio para manter aquecido. Repita com a massa restante, acrescentando mais manteiga na frigideira quando necessário. Sirva com calda de mirtilos a gosto.</p>',
+      const recipeWithId = {
         id: uuidv4(),
-        image: newImage,
-        ingredients:
-          '<ul><li>1/4 de xícara de chá de mel silvestre</li> <li>1/4 de xícara de chá de mel silvestre </li> <li>1/4 de xícara de chá de mel silvestre</li><li>1/4 de xícara de chá de mel silvestre</li><li>1/4 de xícara de chá de mel silvestre</li><li>1/4 de xícara de chá de mel silvestre</li><li>1/4 de xícara de chá de mel silvestre</li></ul>',
-        isFavorite: false,
-        level: 'Iniciante',
-        name: `Panquecas${Math.floor(Math.random() * 100)}`,
-        preparationTime: '20 minutos',
-        updatedAt: '15/04/2021',
-        yield: '1 pessoas',
+        ...recipe,
       };
 
-      await api.post('/recipes', newRecipe);
+      await api.post('/recipes', recipeWithId);
 
       if (router.asPath === '/dashboard') {
         router.reload();
@@ -88,14 +73,8 @@ export function RecipeProvider({ children }: RecipeProviderProps) {
   }
 
   //edite recipe
-  async function editRecipe(
-    recipe: RecipeProps,
-    isFavorite: boolean,
-  ): Promise<void> {
+  async function editRecipe(recipe: RecipeProps): Promise<void> {
     try {
-      recipe.name = 'Só panquecas fav 4';
-      recipe.isFavorite = isFavorite;
-
       await api.put(`/recipes/${recipe.id}`, { ...recipe });
       router.reload();
     } catch (error) {

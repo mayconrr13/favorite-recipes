@@ -84,7 +84,7 @@ export default function Recipe({ recipe }: SelectedRecipeProps): JSX.Element {
       <EditRecipeModal
         isOpen={editModalIsOpen}
         closeModal={closeEditModal}
-        data={{ recipe, recipeIsFavorite }}
+        recipeInitialData={{ recipe, recipeIsFavorite }}
       />
 
       <DeleteRecipeModal

@@ -38,7 +38,7 @@ interface RecipeProps {
 }
 
 export default function Dashboard(): JSX.Element {
-  const { addRecipe, favoriteList, setFavoriteList } = useRecipe();
+  const { favoriteList, setFavoriteList } = useRecipe();
 
   const [favoriteRecipes, setFavoriteRecipes] = useState<boolean>(false);
   const [category, setCategory] = useState<string>('default');
@@ -49,6 +49,12 @@ export default function Dashboard(): JSX.Element {
   const [searchedTerm, setSearchedTerm] = useState<string>('');
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [addModalIsOpen, setAddModalIsOpen] = useState<boolean>(false);
+
+  function closeModal(): void {
+    setAddModalIsOpen(false);
+  }
 
   useEffect(() => {
     async function getData(): Promise<void> {
@@ -64,7 +70,6 @@ export default function Dashboard(): JSX.Element {
       const checkingStoragedFavoriteList: string[] = recipes
         .filter((recipe) => recipe.isFavorite)
         .map((recipe) => recipe.id);
-      console.log(checkingStoragedFavoriteList);
 
       localStorage.setItem(
         '@favorites',
@@ -215,9 +220,10 @@ export default function Dashboard(): JSX.Element {
         {!isLoading && recipeList.length === 0 && (
           <EmptyList>
             <span>Você não possui nenhuma receita</span>
-            <button type="button" onClick={addRecipe}>
+            <button type="button" onClick={() => setAddModalIsOpen(true)}>
               Nova receita
             </button>
+            <AddRecipeModal isOpen={addModalIsOpen} closeModal={closeModal} />
           </EmptyList>
         )}
 

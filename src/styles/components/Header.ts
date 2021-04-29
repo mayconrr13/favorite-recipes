@@ -98,6 +98,7 @@ export const Container = styled.header<ToggleMenu>`
 
   @media (min-width: 740px) {
     > div {
+      padding: inherit 2rem;
       nav {
         position: inherit;
 
@@ -132,5 +133,9 @@ export const Container = styled.header<ToggleMenu>`
         display: none;
       }
     }
+  }
+
+  @media (min-width: 1153px) {
+    padding: 0 1rem;
   }
 `;

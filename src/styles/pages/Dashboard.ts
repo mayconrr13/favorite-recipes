@@ -40,11 +40,14 @@ export const Controls = styled.div`
   width: 100%;
 
   margin-top: 1.5rem;
-  padding: 0 1rem;
 
   @media (min-width: 740px) {
     flex-direction: row-reverse;
     margin-bottom: 2rem;
+  }
+
+  @media (min-width: 1152px) {
+    padding: 0 1rem;
   }
 `;
 
@@ -158,6 +161,12 @@ export const SelectMenu = styled.div<SelecMenuProps>`
     outline: none;
     border: none;
     background-color: transparent;
+
+    svg {
+      transition: transform 0.2s ease-in;
+      transform: ${(props) =>
+        props.menuIsOpen ? 'rotateZ(180deg)' : 'rotateZ(0)'};
+    }
   }
 
   div {
@@ -305,7 +314,7 @@ export const RecipesList = styled.section`
     }
   }
 
-  @media (min-width: 1100px) {
+  @media (min-width: 1153px) {
     max-width: 1184px;
     justify-content: flex-start;
   }

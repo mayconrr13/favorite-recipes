@@ -1,8 +1,15 @@
 import { useState } from 'react';
-import { FiX } from 'react-icons/fi';
 import ReactModal from 'react-modal';
+import { FiX } from 'react-icons/fi';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { useRecipe } from '../hooks/useRecipe';
+
 import { categoriesArray } from '../utils/categoriesOptions';
+
 import { CategoryOption } from './CategoryOption';
+import { LevelOption } from './LevelOption';
 import { Input } from './Input';
 
 import {
@@ -14,7 +21,17 @@ import {
   SubmitButton,
   Loading,
 } from '../styles/components/AddRecipeModal';
-import { useRecipe } from '../hooks/useRecipe';
+
+interface FormValues {
+  name: string;
+  image: string;
+  preparationTime: string;
+  yield: string;
+  level: string;
+  category: string;
+  ingredients: string;
+  directions: string;
+}
 
 interface RecipeProps {
   id: string;
@@ -34,34 +51,78 @@ interface RecipeProps {
 interface EditModalProps {
   isOpen: boolean;
   closeModal: () => void;
-  data: {
+  recipeInitialData: {
     recipe: RecipeProps;
     recipeIsFavorite: boolean;
   };
 }
 
+const recipeSchema = yup.object().shape({
+  name: yup.string().required('Insira o nome da receita'),
+  image: yup.string().url().required('Insina uma imagem com url válida'),
+  preparationTime: yup
+    .string()
+    .required('Insira o tempo de preparo da receita'),
+  yield: yup.string().required('Insira o rendimento da receita'),
+  level: yup.string().required('Selecione um nível de dificuldade'),
+  category: yup.string().required('Selecione uma categoria'),
+  ingredients: yup.string().required('Insira a lista de ingredientes'),
+  directions: yup.string().required('Insira o modo de preparo'),
+});
+
 export const EditRecipeModal = ({
   isOpen,
   closeModal,
-  data,
+  recipeInitialData,
 }: EditModalProps): JSX.Element => {
   const { editRecipe } = useRecipe();
 
-  const [selectedDifficultyLevel, setSelectedDifficultyLevel] = useState<
-    'begginer' | 'intermidiate' | 'advanced'
-  >('begginer');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  async function handleAddRecipe(): Promise<void> {
+  const defaultValues = {
+    name: recipeInitialData.recipe.name,
+    image: recipeInitialData.recipe.image,
+    preparationTime: recipeInitialData.recipe.preparationTime,
+    yield: recipeInitialData.recipe.yield,
+    level: recipeInitialData.recipe.level,
+    category: recipeInitialData.recipe.category,
+    ingredients: recipeInitialData.recipe.ingredients,
+    directions: recipeInitialData.recipe.directions,
+  };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    defaultValues,
+    resolver: yupResolver(recipeSchema),
+  });
+
+  async function handleEditRecipe(data: FormValues): Promise<void> {
     setIsLoading(true);
+    console.log(data);
 
-    const { recipe, recipeIsFavorite } = data;
+    try {
+      const completeData = {
+        id: recipeInitialData.recipe.id,
+        ...data,
+        isFavorite: recipeInitialData.recipeIsFavorite,
+        createdAt: new Date(recipeInitialData.recipe.createdAt),
+        updatedAt: new Date(),
+      };
 
-    await editRecipe(recipe, recipeIsFavorite);
+      await editRecipe(completeData);
 
-    closeModal();
+      closeModal();
 
-    setIsLoading(false);
+      setIsLoading(false);
+
+      return;
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -83,54 +144,51 @@ export const EditRecipeModal = ({
             <FiX />
           </Header>
 
-          <form>
-            <Input id="name" placeholder="Receita" />
-            <Input id="image" placeholder="Foto" />
-            <Input id="preparationTime" placeholder="Tempo de preparo" />
-            <Input id="yield" placeholder="Rendimento" />
+          <form onSubmit={handleSubmit(handleEditRecipe)}>
+            <Input id="recipe" label="Receita" {...register('name')} />
+            <Input id="image" label="Imagem" {...register('image')} />
+            <Input
+              id="preparationTime"
+              label="Tempo de preparo"
+              {...register('preparationTime')}
+            />
+            <Input id="yield" label="Rendimento" {...register('yield')} />
 
             <DifficultyLevelBox>
               <span>Nível de dificuldade</span>
               <div>
-                <button
-                  type="button"
-                  onClick={() => setSelectedDifficultyLevel('begginer')}
-                  className={
-                    selectedDifficultyLevel === 'begginer' ? 'active' : ''
-                  }
-                >
-                  Iniciante
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSelectedDifficultyLevel('intermidiate')}
-                  className={
-                    selectedDifficultyLevel === 'intermidiate' ? 'active' : ''
-                  }
-                >
-                  Intermediário
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSelectedDifficultyLevel('advanced')}
-                  className={
-                    selectedDifficultyLevel === 'advanced' ? 'active' : ''
-                  }
-                >
-                  Avançado
-                </button>
+                <LevelOption
+                  type="radio"
+                  label="Iniciante"
+                  value="Iniciante"
+                  {...register('level')}
+                />
+                <LevelOption
+                  type="radio"
+                  label="Intermediário"
+                  value="Intermediário"
+                  {...register('level')}
+                />
+                <LevelOption
+                  type="radio"
+                  label="Avançado"
+                  value="Avançado"
+                  {...register('level')}
+                />
               </div>
             </DifficultyLevelBox>
 
             <CategoriesOptions>
-              <span>Categoria</span>
+              <span>Selecione uma categoria</span>
               <div>
                 {categoriesArray.map((category) => {
                   return (
                     <CategoryOption
                       key={Object.keys(category)[0]}
-                      id={Object.keys(category)[0]}
-                      category={Object.values(category)[0]}
+                      value={Object.keys(category)[0]}
+                      name="category"
+                      label={Object.values(category)[0]}
+                      {...register('category')}
                     />
                   );
                 })}
@@ -140,24 +198,22 @@ export const EditRecipeModal = ({
             <IngredientsList>
               <label htmlFor="ingredients">Ingredientes</label>
               <textarea
-                name="ingredients"
                 id="ingredients"
                 placeholder="Os ingredientes da receita.."
+                {...register('ingredients')}
               />
             </IngredientsList>
 
             <Directions>
               <label htmlFor="directions">Modo de preparo</label>
               <textarea
-                name="directions"
                 id="directions"
                 placeholder="Modo de preparo da receita..."
+                {...register('directions')}
               />
             </Directions>
 
-            <SubmitButton type="button" onClick={handleAddRecipe}>
-              Salvar alterações
-            </SubmitButton>
+            <SubmitButton type="submit">Salvar alterações</SubmitButton>
           </form>
         </>
       )}
