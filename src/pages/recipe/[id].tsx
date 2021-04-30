@@ -51,6 +51,7 @@ interface SelectedRecipeProps {
 export default function Recipe({ recipe }: SelectedRecipeProps): JSX.Element {
   const { toogleFavorite } = useRecipe();
   const router = useRouter();
+  console.log(recipe.ingredients);
 
   const [recipeIsFavorite, setRecipeIsFavorite] = useState<boolean>(
     recipe.isFavorite,
@@ -138,12 +139,28 @@ export default function Recipe({ recipe }: SelectedRecipeProps): JSX.Element {
         <RecipeDetails>
           <Ingredients>
             <h3>Ingredientes</h3>
-            <div dangerouslySetInnerHTML={{ __html: recipe.ingredients }} />
+            <div
+              dangerouslySetInnerHTML={{
+                __html: `<ul>
+                    ${recipe.ingredients
+                      .split('\n')
+                      .map((item) => `<li>${item}</li>`)
+                      .join('')}
+                  </ul>`,
+              }}
+            />
           </Ingredients>
 
           <Directions>
             <h3>Modo de preparo</h3>
-            <div dangerouslySetInnerHTML={{ __html: recipe.directions }} />
+            <div
+              dangerouslySetInnerHTML={{
+                __html: recipe.directions
+                  .split('\n')
+                  .map((paragraph) => `<p>${paragraph}</p>`)
+                  .join(''),
+              }}
+            />
           </Directions>
         </RecipeDetails>
       </Content>
@@ -154,7 +171,7 @@ export default function Recipe({ recipe }: SelectedRecipeProps): JSX.Element {
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { id } = params;
 
-  const response = await api.get(`/recipes/${id}`);
+  const response = await api.get<RecipeProps>(`/recipes/${id}`);
   const recipe = response.data;
 
   return {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ReactModal from 'react-modal';
 import { FiX } from 'react-icons/fi';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useRecipe } from '../hooks/useRecipe';
@@ -11,6 +11,7 @@ import { categoriesArray } from '../utils/categoriesOptions';
 import { CategoryOption } from './CategoryOption';
 import { LevelOption } from './LevelOption';
 import { Input } from './Input';
+import { TextForm } from './TextForm';
 
 import {
   Header,
@@ -92,6 +93,7 @@ export const EditRecipeModal = ({
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
@@ -197,19 +199,21 @@ export const EditRecipeModal = ({
 
             <IngredientsList>
               <label htmlFor="ingredients">Ingredientes</label>
-              <textarea
-                id="ingredients"
-                placeholder="Os ingredientes da receita.."
-                {...register('ingredients')}
+              <Controller
+                name="ingredients"
+                render={({ field }) => (
+                  <TextForm {...field} value={defaultValues.ingredients} />
+                )}
+                control={control}
               />
             </IngredientsList>
 
             <Directions>
               <label htmlFor="directions">Modo de preparo</label>
-              <textarea
-                id="directions"
-                placeholder="Modo de preparo da receita..."
-                {...register('directions')}
+              <Controller
+                name="directions"
+                render={({ field }) => <TextForm {...field} />}
+                control={control}
               />
             </Directions>
 

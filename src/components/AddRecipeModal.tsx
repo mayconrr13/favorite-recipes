@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ReactModal from 'react-modal';
 import { FiX } from 'react-icons/fi';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useRecipe } from '../hooks/useRecipe';
@@ -21,6 +21,7 @@ import {
   SubmitButton,
   Loading,
 } from '../styles/components/AddRecipeModal';
+import { TextForm } from './TextForm';
 
 interface FormValues {
   name: string;
@@ -58,23 +59,20 @@ export const AddRecipeModal = ({
   const { addRecipe } = useRecipe();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [formErrors, setFormErrors] = useState<string[]>([] as string[]);
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(recipeSchema),
   });
-
-  useEffect(() => {
-    setFormErrors(Object.values(errors).map((error) => error.message));
-  }, [errors]);
+  console.log(errors);
 
   async function handleAddRecipe(data: FormValues): Promise<void> {
     setIsLoading(true);
-
+    console.log(data);
     try {
       const completeData = {
         ...data,
@@ -169,19 +167,19 @@ export const AddRecipeModal = ({
 
             <IngredientsList>
               <label htmlFor="ingredients">Ingredientes</label>
-              <textarea
-                id="ingredients"
-                placeholder="Os ingredientes da receita.."
-                {...register('ingredients')}
+              <Controller
+                name="ingredients"
+                render={({ field }) => <TextForm {...field} />}
+                control={control}
               />
             </IngredientsList>
 
             <Directions>
               <label htmlFor="directions">Modo de preparo</label>
-              <textarea
-                id="directions"
-                placeholder="Modo de preparo da receita..."
-                {...register('directions')}
+              <Controller
+                name="directions"
+                render={({ field }) => <TextForm {...field} />}
+                control={control}
               />
             </Directions>
 

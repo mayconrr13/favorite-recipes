@@ -215,8 +215,7 @@ export const Ingredients = styled.div`
 
   ul {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: space-between;
 
     max-width: 650px;
@@ -244,7 +243,11 @@ export const Ingredients = styled.div`
 
   @media (min-width: 640px) {
     ul {
+      flex-direction: row;
+      flex-wrap: wrap;
+
       li + li {
+        width: 50%;
         margin-top: 0;
         margin-bottom: 0.5rem;
       }
