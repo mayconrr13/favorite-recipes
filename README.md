@@ -32,21 +32,18 @@
 - [x] Salvar receitas em favoritos com LocalStorage e JSON Server
 - [x] Filtrar lista de receitas por categoria, favoritas e por termo pesquisados
 - [x] Formulários com React Hook Form e validados com Yup
-- [-] Animação com o Framer Motion na transição das páginas
-- [-] Login social com Gmail pelo Next-Auth
-- [-] Upload de imagem com Multer e AWS S3
-- [-] MongoDB para persistencia de dados utilizando as API Routes do NextJS
+- [ ] Animação com o Framer Motion na transição das páginas
+- [ ] Login social com Gmail pelo Next-Auth
+- [ ] Upload de imagem com Multer e AWS S3
+- [ ] MongoDB para persistencia de dados utilizando as API Routes do NextJS
 
 ### Screenshots
 ---
-* Projeto no Figma
-<img alt="figma" title="Lets-cook" src="./public/images/figma.png" />
-
-* Mobile
+###### Mobile
 ![](/public/images/mobile.gif)
 
 
-* Web
+###### Web
 ![](/public/images/web.gif)
 
 ### Como instalar
