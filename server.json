@@ -1,48 +1,18 @@
 {
   "recipes": [
     {
-      "id": "e3340fb5-51ae-4bc4-bfb6-5c39a006c65b",
-      "name": "dsads",
-      "image": "https://www.behance.net/gallery/102172483/DELISH/modules/588367807",
-      "preparationTime": "20 minutos",
-      "yield": "5 pessoas",
+      "id": "473e97f3-019c-42fb-8d0b-2f06e65dcbcf",
+      "name": "Carbonara",
+      "image": "https://images.unsplash.com/photo-1612874742237-6526221588e3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80",
+      "preparationTime": "30 minutos",
+      "yield": "2 pessoas",
       "level": "Intermediário",
-      "category": "deserts",
-      "ingredients": [
-        "wewqed",
-        "dqwwq",
-        "fq",
-        "32",
-        "r",
-        "",
-        "r"
-      ],
-      "directions": [
-        "dwqwfq",
-        "f332f",
-        "w",
-        "3f3",
-        "f32",
-        "23ff",
-        "wef"
-      ],
-      "isFavorite": false,
-      "createdAt": "2021-04-30T01:36:11.364Z",
-      "updatedAt": "2021-04-30T01:47:11.113Z"
-    },
-    {
-      "id": "2deac066-0efe-4fb5-b3b1-3703ad767e00",
-      "name": "adasadas",
-      "image": "https://www.behance.net/gallery/102172483/DELISH/modules/588367807",
-      "preparationTime": "dasdasasa",
-      "yield": "dasdsaa",
-      "level": "Intermediário",
-      "category": "meal",
-      "ingredients": "dsadasdsaddsa\ndasd\nassa\nd\naa\nddaasd",
-      "directions": "dadsas\nsa\nds\ns\na",
-      "isFavorite": false,
-      "createdAt": "2021-04-30T01:56:30.085Z",
-      "updatedAt": "2021-04-30T01:56:30.085Z"
+      "category": "pasta",
+      "ingredients": "bacon picado a gosto\nqueijo ralado a gosto\n3 ovos\nsal\npimenta-do-reino a gosto\nmacarrão de sua escolha (espaguete, fusili,etc.)\ncreme de leite se quiser dar um toque diferente à receita",
+      "directions": "Frite bem o bacon, até ficar crocante (pode-se adicionar salame picado).\nColoque o macarrão para cozinhar em água e sal.\nNo refratário onde será servido o macarrão, bata bem os ovos com um garfo.\nTempere com sal e pimenta a gosto, e junte o queijo ralado, também a gosto.\nQuando o macarrão estiver pronto, escorra e coloque (bem quente) sobre a mistura de ovos, misture bem.\nO calor da massa cozinha os ovos.\nColoque o bacon, ainda quente, sobre o macarrão e sirva.",
+      "isFavorite": true,
+      "createdAt": "2021-05-03T15:05:45.207Z",
+      "updatedAt": "2021-05-03T15:05:45.207Z"
     }
   ]
 }

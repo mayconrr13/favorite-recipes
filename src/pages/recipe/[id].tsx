@@ -51,7 +51,6 @@ interface SelectedRecipeProps {
 export default function Recipe({ recipe }: SelectedRecipeProps): JSX.Element {
   const { toogleFavorite } = useRecipe();
   const router = useRouter();
-  console.log(recipe.ingredients);
 
   const [recipeIsFavorite, setRecipeIsFavorite] = useState<boolean>(
     recipe.isFavorite,

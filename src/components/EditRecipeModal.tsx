@@ -143,7 +143,9 @@ export const EditRecipeModal = ({
         <>
           <Header>
             <h3>Editar receita</h3>
-            <FiX />
+            <button onClick={closeModal}>
+              <FiX />
+            </button>
           </Header>
 
           <form onSubmit={handleSubmit(handleEditRecipe)}>

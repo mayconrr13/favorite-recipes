@@ -14,10 +14,15 @@ export const Header = styled.header`
     color: var(--primary);
   }
 
-  svg {
-    width: 1.25rem;
-    height: auto;
-    color: var(--text);
+  button {
+    border: none;
+    background-color: transparent;
+
+    svg {
+      width: 1.25rem;
+      height: auto;
+      color: var(--text);
+    }
   }
 `;
 

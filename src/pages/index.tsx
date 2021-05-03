@@ -1,8 +1,11 @@
+import { useRouter } from 'next/dist/client/router';
 import Head from 'next/head';
 
 import { HomeContainer, Content } from '../styles/pages/Home';
 
 export default function Home(): JSX.Element {
+  const router = useRouter();
+
   return (
     <HomeContainer>
       <Head>
@@ -24,7 +27,7 @@ export default function Home(): JSX.Element {
           <br /> ou família.
         </span>
 
-        <button>
+        <button onClick={() => router.push('/dashboard')}>
           <div>
             <img src="/icons/google.svg" alt="gmail" />
           </div>

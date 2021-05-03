@@ -68,11 +68,10 @@ export const AddRecipeModal = ({
   } = useForm<FormValues>({
     resolver: yupResolver(recipeSchema),
   });
-  console.log(errors);
 
   async function handleAddRecipe(data: FormValues): Promise<void> {
     setIsLoading(true);
-    console.log(data);
+
     try {
       const completeData = {
         ...data,
@@ -110,7 +109,9 @@ export const AddRecipeModal = ({
         <>
           <Header>
             <h3>Nova receita</h3>
-            <FiX />
+            <button onClick={closeModal}>
+              <FiX />
+            </button>
           </Header>
 
           <form onSubmit={handleSubmit(handleAddRecipe)}>
@@ -130,7 +131,6 @@ export const AddRecipeModal = ({
                   type="radio"
                   label="Iniciante"
                   value="Iniciante"
-                  checked
                   {...register('level')}
                 />
                 <LevelOption
